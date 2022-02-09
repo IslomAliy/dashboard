@@ -2,6 +2,63 @@ import React from "react";
 import Layout from "../Layout";
 import styles from "./table.module.scss";
 
+const data = [
+  {
+    id:1,
+    name: 'Алиса Морозова',
+    amount: '$106.58',
+    inv: 'PL12334439893',
+    status: true,
+    statusData: 'Unpaid',
+    invDate: '8/30/14',
+    discDate: '8/30/14'
+  },
+
+  {
+    id:2,
+    name: 'Артём Соколов',
+    amount: '$202.87',
+    inv: 'PL12334439893',
+    status: false,
+    statusData: 'Overdue',
+    invDate: '9/23/16',
+    discDate: '9/23/16'
+  },
+
+  {
+    id:3,
+    name: 'Иван Семёнов',
+    amount: '$943.65',
+    inv: 'PL12334439893',
+    status: true,
+    statusData: 'Unpaid',
+    invDate: '5/27/15',
+    discDate: '5/27/15'
+  },
+
+  {
+    id:4,
+    name: 'Кристина Тарасова',
+    amount: '$601.13',
+    inv: 'PL12334439893',
+    status: true,
+    statusData: 'Unpaid',
+    invDate: '9/4/12',
+    discDate: '9/4/12'
+  },
+
+  {
+    id:5,
+    name: 'Ольга Ильина',
+    amount: '$739.65',
+    inv: 'PL12334439893',
+    status: true,
+    statusData: 'Unpaid',
+    invDate: '6/19/14',
+    discDate: '6/19/14'
+  }
+]
+
 const Table = () => {
   return (
     <>
@@ -41,71 +98,21 @@ const Table = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </td>
-                    <td>Алиса Морозова</td>
-                    <td>$106.58</td>
-                    <td>PL12334439893</td>
-                    <td>
-                      <span className={styles.unpaid}>Unpaid</span>
-                    </td>
-                    <td>8/30/14</td>
-                    <td>8/30/14</td>
-                  </tr>
-                  <tr>
-                    <td  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </td>
-                    <td>Алиса Морозова</td>
-                    <td>$106.58</td>
-                    <td>PL12334439893</td>
-                    <td>
-                      <span className={styles.overdue}>Overdue</span>
-                    </td>
-                    <td>8/30/14</td>
-                    <td>8/30/14</td>
-                  </tr>
-                  <tr>
-                    <td  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </td>
-                    <td>Алиса Морозова</td>
-                    <td>$106.58</td>
-                    <td>PL12334439893</td>
-                    <td>
-                      <span className={styles.unpaid}>Unpaid</span>
-                    </td>
-                    <td>8/30/14</td>
-                    <td>8/30/14</td>
-                  </tr>
-                  <tr>
-                    <td  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </td>
-                    <td>Алиса Морозова</td>
-                    <td>$106.58</td>
-                    <td>PL12334439893</td>
-                    <td>
-                      <span className={styles.unpaid}>Unpaid</span>
-                    </td>
-                    <td>8/30/14</td>
-                    <td>8/30/14</td>
-                  </tr>
-                  <tr>
-                    <td  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </td>
-                    <td>Алиса Морозова</td>
-                    <td>$106.58</td>
-                    <td>PL12334439893</td>
-                    <td>
-                      <span className={styles.unpaid}>Unpaid</span>
-                    </td>
-                    <td>8/30/14</td>
-                    <td>8/30/14</td>
-                  </tr>
+                  {data.map((datas) => (
+                     <tr key={datas.id}>
+                      <td  className={styles.checkBox}>
+                        <input type="checkbox"/>
+                      </td>
+                      <td>{datas.name}</td>
+                      <td>{datas.amount}</td>
+                      <td>{datas.inv}</td>
+                      <td>
+                        <span className={`${datas.status ? styles.unpaid : styles.overdue}`}>{datas.statusData}</span>
+                      </td>
+                      <td>{datas.invDate}</td>
+                      <td>{datas.discDate}</td>
+                   </tr>
+                  ))}  
                 </tbody>
               </table>
               
