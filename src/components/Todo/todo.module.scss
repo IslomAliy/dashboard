@@ -60,6 +60,15 @@
         overflow: scroll;
         overflow-x: hidden;
         border-radius: 12px;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+           
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #D1D2D3; 
+        }
     }
 
     .todoElement {
