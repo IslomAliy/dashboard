@@ -58,10 +58,25 @@
                 width: 100%;
                 border-collapse: collapse;
 
+                tbody {
+                    tr {
+                        &:nth-child(odd) {
+                            background-color: #F4F6FA;
+                        }
+
+                    }
+                }
+
                 th {
                     font-size: 14px;
                     font-weight: 600;
                     color: #1A2024;
+                }
+
+                td {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #303940;
                 }
 
                 th, td {
@@ -69,6 +84,25 @@
                     border: 1px solid #E5E9EB;
                     padding-left: 16px;                    
                 }
+
+                .unpaid {
+                    color: #0452C8;
+                    background-color: #D7EDFF;
+                    font-size: 14px;
+                    font-weight: 500;
+                    padding: 4px 36px;
+                    border-radius: 6px;
+                }
+
+                .overdue {
+                    color: #F2271C;
+                    background-color: #FDDFDD;
+                    font-size: 14px;
+                    font-weight: 500;
+                    padding: 4px 31px;
+                    border-radius: 6px;
+                }
+
 
                 .checkBox {
                     width: 48px;

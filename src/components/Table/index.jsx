@@ -49,13 +49,66 @@ const Table = () => {
                     <td>$106.58</td>
                     <td>PL12334439893</td>
                     <td>
-                      <span>Unpaid</span>
+                      <span className={styles.unpaid}>Unpaid</span>
+                    </td>
+                    <td>8/30/14</td>
+                    <td>8/30/14</td>
+                  </tr>
+                  <tr>
+                    <td  className={styles.checkBox}>
+                      <input type="checkbox"/>
+                    </td>
+                    <td>Алиса Морозова</td>
+                    <td>$106.58</td>
+                    <td>PL12334439893</td>
+                    <td>
+                      <span className={styles.overdue}>Overdue</span>
+                    </td>
+                    <td>8/30/14</td>
+                    <td>8/30/14</td>
+                  </tr>
+                  <tr>
+                    <td  className={styles.checkBox}>
+                      <input type="checkbox"/>
+                    </td>
+                    <td>Алиса Морозова</td>
+                    <td>$106.58</td>
+                    <td>PL12334439893</td>
+                    <td>
+                      <span className={styles.unpaid}>Unpaid</span>
+                    </td>
+                    <td>8/30/14</td>
+                    <td>8/30/14</td>
+                  </tr>
+                  <tr>
+                    <td  className={styles.checkBox}>
+                      <input type="checkbox"/>
+                    </td>
+                    <td>Алиса Морозова</td>
+                    <td>$106.58</td>
+                    <td>PL12334439893</td>
+                    <td>
+                      <span className={styles.unpaid}>Unpaid</span>
+                    </td>
+                    <td>8/30/14</td>
+                    <td>8/30/14</td>
+                  </tr>
+                  <tr>
+                    <td  className={styles.checkBox}>
+                      <input type="checkbox"/>
+                    </td>
+                    <td>Алиса Морозова</td>
+                    <td>$106.58</td>
+                    <td>PL12334439893</td>
+                    <td>
+                      <span className={styles.unpaid}>Unpaid</span>
                     </td>
                     <td>8/30/14</td>
                     <td>8/30/14</td>
                   </tr>
                 </tbody>
               </table>
+              
             </div>
           </div>
         </div>
