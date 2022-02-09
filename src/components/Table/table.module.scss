@@ -1,0 +1,112 @@
+.tableWrapper {
+    margin-top: 60px;
+    margin-bottom: 50px;
+
+    .tableHeading {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .tableBg {
+        background-color: #fff;
+
+        .tableContainer {
+            padding: 16px;
+
+            .headSection {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 26px;
+
+                .tableSearch {
+                    padding: 6px 8px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #9AA6AC;
+                    border-radius: 6px;
+                    border: 1px solid #E5E9EB;
+                }
+
+                .tableMenu {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    max-width: 187px;
+                    li {
+                        list-style-type: none;
+
+                        a {
+                            text-decoration: none;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #6E8BB7;
+                        }
+
+                        .tableActive {
+                            color: #0E73F6;
+                            padding-bottom: 13px;
+                            border-bottom: 2px solid #0E73F6;
+                        }
+                    }
+                }
+            }
+
+            .table {
+                max-width: 1091px;
+                width: 100%;
+                border-collapse: collapse;
+
+                th {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #1A2024;
+                }
+
+                th, td {
+                    text-align: left;
+                    border: 1px solid #E5E9EB;
+                    padding-left: 16px;                    
+                }
+
+                .checkBox {
+                    width: 48px;
+                    height: 48px;
+                    text-align: center;
+                    padding: 0;
+
+                input {
+                        width: 20px;
+                        height: 20px;
+                        background-color: #F6F8F9;
+                        border-radius: 4px;
+                        border: 1px solid #B0BABF;
+                    }
+                }
+
+                .name {
+                    width: 183px;
+                    
+                }
+
+                .amount {
+                    width: 240px;
+                }
+
+                .inv {
+                    width: 240px;
+                }
+
+                .status {
+                    width: 152px;
+                }
+
+                .dates {
+                    width: 114px;
+                }
+                
+            }
+        }
+    }
+}

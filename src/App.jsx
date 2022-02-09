@@ -1,15 +1,15 @@
 import Folders from "./components/Folders";
 import Menu from "./components/Menu";
-import Projects from "./components/Projects";
-import Todo from "./components/Todo";
+import Table from "./components/Table";
+import TodoProjectsWrapper from "./components/TodoProjectsWrapper";
 
 function App() {
   return (
     <div className="App">
       <Menu/>
       <Folders/>
-      <Todo/>
-      <Projects/>
+      <TodoProjectsWrapper/>
+      <Table/>
     </div>
   );
 }
