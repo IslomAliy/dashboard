@@ -1,0 +1,38 @@
+.menu {
+    display: flex;
+    justify-content: center;
+    padding-top: 32px;
+    margin-bottom: 72px;
+    .menuItems {
+           display: flex;
+           justify-content: space-between;
+           width: 100%;
+           max-width: 448px;
+
+           li {
+               list-style-type: none;
+
+               a {
+                   text-decoration: none;
+                   color: #6E8BB7;
+                   font-weight: 500;
+                   font-size: 14px;
+                   padding-bottom: 16px;
+               }
+
+               .active {
+                   color: #4094F7;
+                   font-weight: 500;
+                   border-bottom: 4px solid #4094F7;
+               }
+           }
+    }
+
+    .userIcons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 100px;
+    }
+}

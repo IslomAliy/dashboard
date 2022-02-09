@@ -1,0 +1,43 @@
+.foldersWrapper {
+
+    .headSection{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        
+        .greeting {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+        }
+
+            .newProjectBtn {
+                display: flex;
+                align-items: center;
+                background-color: #027AFF;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+                padding: 8px 16px;
+                border-radius: 6px;
+                border: none;
+
+                &:active {
+                    transform: scale(0.98);
+                }
+
+                .plusIcon {
+                    font-size: 16px;
+                    margin-right: 12px;
+                    align-self: center;
+                }
+        }
+    }
+
+    .folders {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

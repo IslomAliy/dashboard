@@ -1,0 +1,48 @@
+.folderWrapper {
+    width: 32%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 1px 0px #1A202452;
+
+    
+    .folderInner {
+        max-width: 310px;
+        width: 100%;
+        margin: 0 auto; 
+        padding: 30px 0 30px 10px;
+
+        .folderImages {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            .threeDots {
+                align-self: flex-start;
+            }
+        }
+
+        .folderName {
+            font-size: 17px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .folderDetails {
+            display: flex;
+
+            .projects {
+                margin-right: 15px;
+                font-size: 14px;
+                font-weight: 400;
+                color: #84919A;
+            }
+
+            .files {
+                font-size: 14px;
+                font-weight: 400;
+                color: #84919A;
+            }
+        }
+    }
+}
