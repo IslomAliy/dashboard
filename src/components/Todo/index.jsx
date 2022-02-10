@@ -33,6 +33,22 @@ const Todo = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [todos, setTodos] = useState(initialTodo)
+    const [newTodo, setNewTodo] = useState('')
+
+    console.log(newTodo);
+
+    console.log(todos);
+
+    const addTodo = (label) => {
+        const newTodo = createTodo(label);
+        setTodos([...todos, newTodo])
+        // window.location.reload();
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        addTodo(newTodo)
+    }
 
   return (
     <>
@@ -71,11 +87,16 @@ const Todo = () => {
     <div className={styles.modal}>
             <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Add to do list</h1>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className={styles.inputForms}>             
                         <div className={styles.inputField}>
                             <label htmlFor="title">Title </label>
-                            <input type="text" placeholder='Title'/>
+                            <input 
+                                type="text" 
+                                placeholder='Title' 
+                                value={newTodo} 
+                                onChange={e => setNewTodo(e.target.value)}
+                            />
                         </div>
                         <div className={styles.inputField}>
                             <label htmlFor="title">Description </label>
