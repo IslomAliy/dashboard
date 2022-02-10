@@ -10,9 +10,6 @@ const createTodo = (label) => {
         done: false,
         id: maxId++
     }
-
- 
-
 }
 
 const initialTodo = [
@@ -40,7 +37,7 @@ const Todo = () => {
     // console.log(newTodo);
 
     // console.log(todos);
-    console.log(localStorage.getItem('label'));
+    // console.log(localStorage.getItem('label'));
 
     const addTodo = (label) => {
         const newTodo = createTodo(label);
@@ -91,14 +88,12 @@ const Todo = () => {
                   </div>
               </div>
             ))}
-        </div>
-        {isOpen && (
-            <div className={styles.overlay}/>
-        )}
-      
+        </div>      
     </div>
     
     {isOpen && 
+    <>
+    <div className={styles.overlay}/>
     <div className={styles.modal}>
             <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Add to do list</h1>
@@ -130,6 +125,7 @@ const Todo = () => {
                 </form>
             </div>
         </div>  
+        </>
         }   
     </>
     );
