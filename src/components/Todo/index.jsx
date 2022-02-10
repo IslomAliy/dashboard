@@ -11,6 +11,8 @@ const createTodo = (label) => {
         id: maxId++
     }
 
+ 
+
 }
 
 const initialTodo = [
@@ -35,19 +37,30 @@ const Todo = () => {
     const [todos, setTodos] = useState(initialTodo)
     const [newTodo, setNewTodo] = useState('')
 
-    console.log(newTodo);
+    // console.log(newTodo);
 
-    console.log(todos);
+    // console.log(todos);
+    console.log(localStorage.getItem('label'));
 
     const addTodo = (label) => {
         const newTodo = createTodo(label);
         setTodos([...todos, newTodo])
+        localStorage.setItem('label', label)
+        // isOpen(false)
         // window.location.reload();
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
         addTodo(newTodo)
+        setNewTodo('')
+    }
+
+    const onToggleDone = (todoID) => {
+        const toggleTodo = todos.find(item => item.id === todoID)
+        toggleTodo.done = !toggleTodo.done
+        const newTodos = todos.filter(item => item.id !== todoID)
+        setTodos([...newTodos, toggleTodo])
     }
 
   return (
@@ -71,8 +84,10 @@ const Todo = () => {
                 <div className={styles.todoElement} key={todosData.id}>
                   <img src="/images/change-order.svg" alt="change-order" className={styles.dragIcon}/>
                   <div className={styles.inputWrapper}>
-                      <input type="checkbox" name="checkbox" id="checkbox" className={styles.checkbox}/>
-                      <p> {todosData.label}</p>
+                      <label >
+                         <input type="checkbox" name="checkbox" id="checkbox" className={styles.checkbox}/>
+                        <span onClick={() => onToggleDone(todosData.id)} style={{textDecoration: todosData.done ? 'line-through' : 'none'}}>{todosData.label}</span>
+                      </label>
                   </div>
               </div>
             ))}
