@@ -2,18 +2,16 @@ import { useState } from "react";
 import Folder from "../Folder";
 import Layout from "../Layout";
 import styles from "./folders.module.scss";
+import { addProject } from '../../redux/actions/projectsAction'
+import { useDispatch, useSelector } from "react-redux";
 
 const Folders = () => {
-
+    const dispatch = useDispatch();
+    const projects = useSelector(state => state.projects)
     const [isOpen, setIsOpen] = useState(false);
     const [newProject, setNewProject] = useState('');
-    const [projects, setProjects] = useState();
-
-    console.log(newProject);
-
-    const onSubmit = () => {
-
-    }
+    
+    console.log('Folders->projects', projects);
 
   return (
     <Layout>
@@ -53,15 +51,16 @@ const Folders = () => {
             <div className={styles.modal}>
               <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Creating new project</h1>
-                <form>
+                <form className={styles.modalForm}>
                   <div className={styles.inputForms}>
                     <div className={styles.inputField}>
                       <label htmlFor="title">Title of project </label>
                       <input
                         type="text"
                         placeholder="Title of project"
-                        value={newProject}
+                        // value={newProject}
                         onChange={(e) => setNewProject(e.target.value)}
+                        required
                       />
                     </div>
                     <div className={styles.inputField}>
@@ -79,14 +78,14 @@ const Folders = () => {
                     <div className={styles.membersField}>
                       <label htmlFor="title">Members </label>
                       <select > 
-                          <option value="" disabled selected>Select members</option>
+                          <option value="" disabled >Select members</option>
                           <option value="falonchi">Falonchi 1</option>
                           <option value="falonchi">Falonchi 2</option>
                           <option value="falonchi">Falonchi 3</option>
                       </select>
                     </div>
                   </div>
-
+                    
                   <div className={styles.buttons}>
                     <button
                       type="button"
@@ -95,7 +94,7 @@ const Folders = () => {
                     >
                       Cancel
                     </button>
-                    <button type="submit" className={styles.saveBtn}>
+                    <button type='button' className={styles.saveBtn} onClick={() => setNewProject(dispatch(addProject(newProject)))}>
                       Save
                     </button>
                   </div>

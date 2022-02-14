@@ -1,62 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './todo.module.scss';
-
-
-let maxId = 1;
-
-const createTodo = (label) => {
-    return {
-        label,
-        done: false,
-        id: maxId++
-    }
-}
-
-const initialTodo = [
-
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('Add participiants to Magnolia'),
-    createTodo('This is second Todo'),
-    createTodo('This is third Todo'),
-]
+import { addTodos } from '../../redux/actions/todosAction'
 
 const Todo = () => {
-
+    const todoState = useSelector(state => state.todos)
+    const projectState = useSelector(state => state.projects)
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const [todos, setTodos] = useState(initialTodo)
+    const [todos, setTodos] = useState(todoState)
     const [newTodo, setNewTodo] = useState('')
 
-    // console.log(newTodo);
+    // console.log('todoStatee',todoState);
+    // console.log('prs=', projectState);   
 
-    // console.log(todos);
-    // console.log(localStorage.getItem('label'));
 
-    const addTodo = (label) => {
-        const newTodo = createTodo(label);
-        setTodos([...todos, newTodo])
-        localStorage.setItem('label', label)
-        // isOpen(false)
-        // window.location.reload();
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        addTodo(newTodo)
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setNewTodo(dispatch(addTodos(newTodo)))
         setNewTodo('')
     }
 
     const onToggleDone = (todoID) => {
-        const toggleTodo = todos.find(item => item.id === todoID)
+        const toggleTodo = todoState.find(item => item.id === todoID)
         toggleTodo.done = !toggleTodo.done
-        const newTodos = todos.filter(item => item.id !== todoID)
+        const newTodos = todoState.filter(item => item.id !== todoID)
         setTodos([...newTodos, toggleTodo])
     }
 
@@ -77,12 +46,12 @@ const Todo = () => {
             </div>
         </div>
         <div className={styles.todoArea}> 
-            {todos.map((todosData)=> (
+            {todoState.map((todosData)=> (
                 <div className={styles.todoElement} key={todosData.id}>
                   <img src="/images/change-order.svg" alt="change-order" className={styles.dragIcon}/>
                   <div className={styles.inputWrapper}>
                       <label >
-                         <input type="checkbox" name="checkbox" id="checkbox" className={styles.checkbox}/>
+                         <input type="checkbox" name="checkbox" id="checkbox" className={styles.checkbox} />
                         <span onClick={() => onToggleDone(todosData.id)} style={{textDecoration: todosData.done ? 'line-through' : 'none'}}>{todosData.label}</span>
                       </label>
                   </div>
@@ -97,7 +66,7 @@ const Todo = () => {
     <div className={styles.modal}>
             <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Add to do list</h1>
-                <form onSubmit={onSubmit}>
+                <form className={styles.modalForm} onSubmit={handleSubmit}>
                     <div className={styles.inputForms}>             
                         <div className={styles.inputField}>
                             <label htmlFor="title">Title </label>
@@ -106,6 +75,7 @@ const Todo = () => {
                                 placeholder='Title' 
                                 value={newTodo} 
                                 onChange={e => setNewTodo(e.target.value)}
+                                required
                             />
                         </div>
                         <div className={styles.inputField}>
@@ -120,7 +90,7 @@ const Todo = () => {
 
                     <div className={styles.buttons}>
                         <button type='button' className={styles.cancelBtn} onClick={() => setIsOpen(false)}>Cancel</button>
-                        <button type="submit" className={styles.saveBtn}>Save</button>
+                        <button type="submit" className={styles.saveBtn} >Save</button>
                     </div>
                 </form>
             </div>
