@@ -4,13 +4,6 @@ import styles from "./projects.module.scss";
 
 const Projects = () => {
   const projects = useSelector((state) => state.projects.slice(-3));
-  const todos = useSelector(state => state.todos)
-  const [project, setProject] = useState(projects);
-
- 
-
-  console.log('projects', projects);
-  console.log('tds=', todos);
 
   return (
     <>

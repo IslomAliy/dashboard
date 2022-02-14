@@ -7,11 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Folders = () => {
     const dispatch = useDispatch();
-    const projects = useSelector(state => state.projects)
     const [isOpen, setIsOpen] = useState(false);
     const [newProject, setNewProject] = useState('');
     
-    console.log('Folders->projects', projects);
 
   return (
     <Layout>

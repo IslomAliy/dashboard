@@ -6,14 +6,11 @@ import { addTodos } from '../../redux/actions/todosAction'
 
 const Todo = () => {
     const todoState = useSelector(state => state.todos)
-    const projectState = useSelector(state => state.projects)
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const [todos, setTodos] = useState(todoState)
     const [newTodo, setNewTodo] = useState('')
 
-    // console.log('todoStatee',todoState);
-    // console.log('prs=', projectState);   
 
 
     const handleSubmit = (event) => {
