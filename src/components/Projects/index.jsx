@@ -9,13 +9,13 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState([]).slice(-3);
   const projectsCollection = collection(db, 'projects')
 
-  const getProjects = async () => {
-    const data = await getDocs(projectsCollection)
-    setProjectsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-  }
+ 
 
   useEffect(() => {
- 
+    const getProjects = async () => {
+      const data = await getDocs(projectsCollection)
+      setProjectsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    }
 
     getProjects();
   }, [])
@@ -50,7 +50,7 @@ const Projects = () => {
                 <button className={styles.editBtn}>Edit</button>
               </div>
             </div>
-          ))}
+          )).slice(-3)}
         </div>
       </div>
     </>

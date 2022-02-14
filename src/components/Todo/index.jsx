@@ -16,8 +16,6 @@ const Todo = () => {
     const [todosState, setTodosState] = useState([]);
     const todosCollection = collection(db, 'todos')
 
-    console.log('checkboxValue', checkboxValue);
-
     useEffect(() => {
         const getTodos = async () => {
             const data = await getDocs(todosCollection);
