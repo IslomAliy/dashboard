@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import styles from './todo.module.scss';
 import { addTodos } from '../../redux/actions/todosAction'
+import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase-config';
 
 const Todo = () => {
     const todoState = useSelector(state => state.todos)
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const [todos, setTodos] = useState(todoState)
+    const [checkboxValue, setCheckboxValue] = useState(false)
     const [newTodo, setNewTodo] = useState('')
+    const [todosState, setTodosState] = useState([]);
+    const todosCollection = collection(db, 'todos')
+
+    console.log('checkboxValue', checkboxValue);
+
+    useEffect(() => {
+        const getTodos = async () => {
+            const data = await getDocs(todosCollection);
+            setTodosState(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+        }
+
+        getTodos();
+    }, [])
+
+    const addProject = async (e) => {
+        e.preventDefault()
+        try {
+            await addDoc(todosCollection, {label: newTodo, done: checkboxValue})
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        window.location.reload();
+    }
 
 
 
@@ -19,12 +46,19 @@ const Todo = () => {
         setNewTodo('')
     }
 
-    const onToggleDone = (todoID) => {
-        const toggleTodo = todoState.find(item => item.id === todoID)
-        toggleTodo.done = !toggleTodo.done
-        const newTodos = todoState.filter(item => item.id !== todoID)
-        setTodos([...newTodos, toggleTodo])
-    }
+    const onToggleDone = async (id, done) => {
+        const todoDoc = doc(db, 'todos', id)
+        const changeDone = {done: !done}
+        await updateDoc(todoDoc, changeDone)
+        console.log(done);
+    }   
+
+    // const onToggleDone = (todoID) => {
+    //     const toggleTodo = todoState.find(item => item.id === todoID)
+    //     toggleTodo.done = !toggleTodo.done
+    //     const newTodos = todoState.filter(item => item.id !== todoID)
+    //     setTodos([...newTodos, toggleTodo])
+    // }
 
   return (
     <>
@@ -43,7 +77,7 @@ const Todo = () => {
             </div>
         </div>
         <div className={styles.todoArea}> 
-            {todoState.map((todosData)=> (
+            {todosState.map((todosData)=> (
                 <div className={styles.todoElement} key={todosData.id}>
                   <img src="/images/change-order.svg" alt="change-order" className={styles.dragIcon}/>
                   <div className={styles.inputWrapper}>
@@ -63,7 +97,7 @@ const Todo = () => {
     <div className={styles.modal}>
             <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Add to do list</h1>
-                <form className={styles.modalForm} onSubmit={handleSubmit}>
+                <form className={styles.modalForm} onSubmit={addProject}>
                     <div className={styles.inputForms}>             
                         <div className={styles.inputField}>
                             <label htmlFor="title">Title </label>
@@ -77,7 +111,7 @@ const Todo = () => {
                         </div>
                         <div className={styles.inputField}>
                             <label htmlFor="title">Description </label>
-                            <input type="text" placeholder='Description'/>
+                            <input type="text" defaultChecked={checkboxValue} placeholder='Description'/>
                         </div>
                         <div className={styles.checkboxField}>
                             <label htmlFor="status">Status </label>

@@ -1,16 +1,29 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./projects.module.scss";
+import { db } from '../../firebase-config'
+import { collection, getDocs } from 'firebase/firestore'
+import { useEffect, useState } from "react";
 
 const Projects = () => {
   const projects = useSelector((state) => state.projects.slice(-3));
+  const [projectsData, setProjectsData] = useState([]);
+  const projectsCollection = collection(db, 'projects')
+
+  useEffect(() => {
+    const getProjects = async () => {
+      const data = await getDocs(projectsCollection)
+      setProjectsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    }
+
+    getProjects();
+  }, [])
 
   return (
     <>
       <div className={styles.projectsWrapper}>
         <h1 className={styles.projectsHeading}>Latest projects</h1>
         <div className={styles.projectsCardWrapper}>
-          {projects.map((projectData) => (
+          {projectsData.map((projectData) => (
             <div className={styles.projectsCard} key={projectData.id}>
               <div className={styles.leftSide}>
                 <img
