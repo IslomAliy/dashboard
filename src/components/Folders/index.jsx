@@ -4,14 +4,14 @@ import Layout from "../Layout";
 import styles from "./folders.module.scss";
 // import { addProject } from "../../redux/actions/projectsAction";
 import { useDispatch } from "react-redux";
-import { addDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 const Folders = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [newProject, setNewProject] = useState("");
-  const projectsCollection = (db, "projects");
+  const projectsCollection = collection(db, "projects");
 
   console.log(newProject);
 
@@ -62,7 +62,7 @@ const Folders = () => {
 
         {isOpen && (
           <>
-            <div className={styles.overlay} />
+            <div className={styles.overlay} onClick={() => setIsOpen(false)}/>
             <div className={styles.modal}>
               <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Creating new project</h1>

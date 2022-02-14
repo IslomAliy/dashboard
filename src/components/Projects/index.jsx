@@ -6,14 +6,16 @@ import { useEffect, useState } from "react";
 
 const Projects = () => {
   const projects = useSelector((state) => state.projects.slice(-3));
-  const [projectsData, setProjectsData] = useState([]);
+  const [projectsData, setProjectsData] = useState([]).slice(-3);
   const projectsCollection = collection(db, 'projects')
 
+  const getProjects = async () => {
+    const data = await getDocs(projectsCollection)
+    setProjectsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+  }
+
   useEffect(() => {
-    const getProjects = async () => {
-      const data = await getDocs(projectsCollection)
-      setProjectsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-    }
+ 
 
     getProjects();
   }, [])

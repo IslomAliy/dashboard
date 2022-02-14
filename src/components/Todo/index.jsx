@@ -93,7 +93,7 @@ const Todo = () => {
     
     {isOpen && 
     <>
-    <div className={styles.overlay}/>
+    <div className={styles.overlay} onClick={() => setIsOpen(false)}/>
     <div className={styles.modal}>
             <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Add to do list</h1>
