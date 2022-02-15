@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Folder from "../Folder";
 import Layout from "../Layout";
 import styles from "./folders.module.scss";
@@ -7,22 +7,36 @@ import { useDispatch } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
-const Folders = () => {
-  const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  const [newProject, setNewProject] = useState("");
-  const projectsCollection = collection(db, "projects");
+// let timestamp = Math.round(new Date().getTime() / 1000)
 
-  console.log(newProject);
+// let idField = 1;
 
-  const addProject = async (e) => {
-    e.preventDefault();
-    try {
-      await addDoc(projectsCollection, { label: newProject });
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+// console.log(timestamp);
+
+// let projectsID = 1;
+
+const Folders = ({newProject, setNewProject, isOpen, setIsOpen, addProject}) => {
+  
+  // const dispatch = useDispatch();
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [newProject, setNewProject] = useState("");
+  // const projectsCollection = collection(db, "projects");
+
+  // console.log(newProject);
+
+  // const addProject = (e) => {
+  //   e.preventDefault();
+  //     addDoc(projectsCollection, { label: newProject, timeStamp: timestamp}).then(res => {
+  //       console.log('response', res)
+  //     })
+ 
+  //   setNewProject('')
+  //   setIsOpen(false)
+  // };
+
+  // useEffect(() => {
+  //   addProject();
+  // }, [newProject])
 
   return (
     <Layout>

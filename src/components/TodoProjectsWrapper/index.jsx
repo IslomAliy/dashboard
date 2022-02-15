@@ -3,13 +3,14 @@ import Projects from "../Projects";
 import styles from './TodoProjectsWrapper.module.scss'
 import Layout from "../Layout";
 
-const TodoProjectsWrapper = () => {
+const TodoProjectsWrapper = ({projectsData}) => {
+
   return (
       <>
       <Layout>
         <div className={styles.TodoProjectsWrapper}>
             <Todo/>
-            <Projects/>
+            <Projects projectsData={projectsData}/>
         </div>
       </Layout>
     </>
