@@ -12,8 +12,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
-let todoID = 1;
-
 const Todo = () => {
   const todoState = useSelector((state) => state.todos);
   const dispatch = useDispatch();
@@ -23,14 +21,15 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState("");
   const [todosState, setTodosState] = useState([]);
   const todosCollection = collection(db, "todos");
+  const [isChecked, setIsChecked] = useState(false)
   console.log(todosState);
 
   const getTodos = async () => {
     const data = await getDocs(todosCollection);
-    setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, done: doc.data().done })));
   };
 
-  const addProject = async (e) => {
+  const addTodo = async (e) => {
     e.preventDefault();
     try {
       await addDoc(todosCollection, { label: newTodo, done: checkboxValue }).then(res => {
@@ -59,9 +58,10 @@ const Todo = () => {
 
   const onToggleDone = async (id, done) => {
     const todoDoc = doc(db, "todos", id);
-    const changeDone = { done: !done };
+    const changeDone = { done: done = !done };
     await updateDoc(todoDoc, changeDone);
     console.log(done);
+    getTodos();
   };
 
   // const onToggleDone = (todoID) => {
@@ -95,22 +95,35 @@ const Todo = () => {
                 className={styles.dragIcon}
               />
               <div className={styles.inputWrapper}>
-                <label>
-                  <input
+             
+                <label
+                // htmlFor="checkbox"
+                onClick={() => onToggleDone(todosData.id, todosData.done)}
+                style={{
+                      textDecoration: todosData.done ? "line-through" : "none",
+                }}
+                > 
+                 <input
                     type="checkbox"
                     name="checkbox"
                     id="checkbox"
+                    value={isChecked}
+                    onChange={e => setIsChecked(e.target.value)}
                     className={styles.checkbox}
-                  />
-                  <span
-                    onClick={() => onToggleDone(todosData.id)}
-                    style={{
-                      textDecoration: todosData.done ? "line-through" : "none",
-                    }}
+                    // onChange={(e) => setIsChecked(e.target.value)}
+                />
+                <span
+                    // onClick={() => onToggleDone(todosData.id, todosData.done)}
+                    // style={{
+                    //   textDecoration: todosData.done ? "line-through" : "none",
+                    // }}
                   >
                     {todosData.label}
                   </span>
                 </label>
+                  
+                  
+                
               </div>
             </div>
           ))}
@@ -123,7 +136,7 @@ const Todo = () => {
           <div className={styles.modal}>
             <div className={styles.modalWrapper}>
               <h1 className={styles.modalHeading}>Add to do list</h1>
-              <form className={styles.modalForm} onSubmit={addProject}>
+              <form className={styles.modalForm} onSubmit={addTodo}>
                 <div className={styles.inputForms}>
                   <div className={styles.inputField}>
                     <label htmlFor="title">Title </label>
