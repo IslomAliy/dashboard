@@ -25,10 +25,19 @@ const Todo = () => {
   const todosCollection = collection(db, "todos");
   console.log(todosState);
 
+  const getTodos = async () => {
+    const data = await getDocs(todosCollection);
+    setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
   const addProject = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(todosCollection, { label: newTodo, done: checkboxValue });
+      await addDoc(todosCollection, { label: newTodo, done: checkboxValue }).then(res => {
+        console.log('response', {...res})
+        getTodos()
+      })
+      getTodos();
     } catch (error) {
       console.error(error.message);
     }
@@ -37,11 +46,6 @@ const Todo = () => {
   };
 
   useEffect(() => {
-    const getTodos = async () => {
-      const data = await getDocs(todosCollection);
-      setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
     getTodos();
   }, []);
 
@@ -109,7 +113,7 @@ const Todo = () => {
                 </label>
               </div>
             </div>
-          )).slice(-3)}
+          ))}
         </div>
       </div>
 
