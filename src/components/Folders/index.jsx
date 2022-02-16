@@ -15,8 +15,8 @@ import { db } from "../../firebase-config";
 
 // let projectsID = 1;
 
-const Folders = ({newProject, setNewProject, isOpen, setIsOpen, addProject}) => {
-  
+const Folders = ({newProject, setNewProject, isOpen, setIsOpen, addProject, take, setTake}) => {
+
   // const dispatch = useDispatch();
   // const [isOpen, setIsOpen] = useState(false);
   // const [newProject, setNewProject] = useState("");
@@ -37,6 +37,12 @@ const Folders = ({newProject, setNewProject, isOpen, setIsOpen, addProject}) => 
   // useEffect(() => {
   //   addProject();
   // }, [newProject])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addProject();
+    setTake(!take)
+  }
 
   return (
     <Layout>
@@ -80,7 +86,7 @@ const Folders = ({newProject, setNewProject, isOpen, setIsOpen, addProject}) => 
             <div className={styles.modal}>
               <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Creating new project</h1>
-                <form className={styles.modalForm} onSubmit={addProject}>
+                <form className={styles.modalForm} onSubmit={handleSubmit}>
                   <div className={styles.inputForms}>
                     <div className={styles.inputField}>
                       <label htmlFor="title">Title of project </label>

@@ -25,15 +25,6 @@ const Todo = () => {
   const todosCollection = collection(db, "todos");
   console.log(todosState);
 
-  useEffect(() => {
-    const getTodos = async () => {
-      const data = await getDocs(todosCollection);
-      setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getTodos();
-  }, []);
-
   const addProject = async (e) => {
     e.preventDefault();
     try {
@@ -46,8 +37,13 @@ const Todo = () => {
   };
 
   useEffect(() => {
-      addProject()
-  }, [todosState])
+    const getTodos = async () => {
+      const data = await getDocs(todosCollection);
+      setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getTodos();
+  }, []);
 
 
 

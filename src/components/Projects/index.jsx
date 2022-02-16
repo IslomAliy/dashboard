@@ -36,7 +36,7 @@ const Projects = ({projectsData}) => {
   // }
 
 
-  console.log('timestampp', projectsData.sort(function(a, b){return a.timeStamp - b.timeStamp}))
+  // console.log('timestampp', projectsData.sort(function(a, b){return a.timeStamp - b.timeStamp}))
 
 // .sort(function(a, b){return a - b})
 

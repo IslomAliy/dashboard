@@ -37,6 +37,7 @@
                 background-color: #fff;
                 border-radius: 6px;
                 border: none;
+                cursor: pointer;
                 
                 &:active {
                     transform: scale(0.85);
@@ -212,6 +213,7 @@
                 padding: 6px 56px;
                 border: 1px solid #E5E9EB;
                 border-radius: 6px;
+                cursor: pointer;
             }
             .cancelBtn {
                 background-color: #fff;
