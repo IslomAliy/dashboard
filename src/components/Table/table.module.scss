@@ -1,146 +1,198 @@
 .tableWrapper {
-    margin-top: 80px;
-    margin-bottom: 50px;
+  margin-top: 80px;
+  margin-bottom: 50px;
+
+  .tableHeading {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .tableBg {
+    background-color: #fff;
+
+    .tableContainer {
+      padding: 16px;
+
+      .headSection {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 26px;
+
+        .tableSearch {
+          padding: 6px 8px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #9aa6ac;
+          border-radius: 6px;
+          border: 1px solid #e5e9eb;
+        }
+
+        .tableMenu {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          max-width: 187px;
+          li {
+            list-style-type: none;
+
+            a {
+              text-decoration: none;
+              font-size: 14px;
+              font-weight: 500;
+              color: #6e8bb7;
+            }
+
+            .tableActive {
+              color: #0e73f6;
+              padding-bottom: 13px;
+              border-bottom: 2px solid #0e73f6;
+            }
+          }
+        }
+      }
+
+      .table {
+        max-width: 1091px;
+        width: 100%;
+        border-collapse: collapse;
+
+        tbody {
+          tr {
+            &:nth-child(odd) {
+              background-color: #f4f6fa;
+            }
+          }
+        }
+
+        th {
+          font-size: 14px;
+          font-weight: 600;
+          color: #1a2024;
+        }
+
+        td {
+          font-size: 14px;
+          font-weight: 400;
+          color: #303940;
+        }
+
+        th,
+        td {
+          text-align: left;
+          border: 1px solid #e5e9eb;
+          padding-left: 16px;
+        }
+
+        .unpaid {
+          color: #0452c8;
+          background-color: #d7edff;
+          font-size: 14px;
+          font-weight: 500;
+          padding: 4px 36px;
+          border-radius: 6px;
+        }
+
+        .overdue {
+          color: #f2271c;
+          background-color: #fddfdd;
+          font-size: 14px;
+          font-weight: 500;
+          padding: 4px 31px;
+          border-radius: 6px;
+        }
+
+        .checkBox {
+          width: 48px;
+          height: 48px;
+          text-align: center;
+          padding: 0;
+
+          input {
+            width: 20px;
+            height: 20px;
+            background-color: #f6f8f9;
+            border-radius: 4px;
+            border: 1px solid #b0babf;
+          }
+        }
+
+        .name {
+          width: 183px;
+        }
+
+        .amount {
+          width: 240px;
+        }
+
+        .inv {
+          width: 240px;
+        }
+
+        .status {
+          width: 152px;
+        }
+
+        .dates {
+          width: 114px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .tableWrapper {
+    width: 90%;
+    // margin-top: 20px;
+    margin: 0 auto;
 
     .tableHeading {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 24px;
+      margin-top: 30px;
     }
-
-    .tableBg {
-        background-color: #fff;
-
-        .tableContainer {
-            padding: 16px;
-
-            .headSection {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 26px;
-
-                .tableSearch {
-                    padding: 6px 8px;
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #9AA6AC;
-                    border-radius: 6px;
-                    border: 1px solid #E5E9EB;
-                }
-
-                .tableMenu {
-                    display: flex;
-                    justify-content: space-between;
-                    width: 100%;
-                    max-width: 187px;
-                    li {
-                        list-style-type: none;
-
-                        a {
-                            text-decoration: none;
-                            font-size: 14px;
-                            font-weight: 500;
-                            color: #6E8BB7;
-                        }
-
-                        .tableActive {
-                            color: #0E73F6;
-                            padding-bottom: 13px;
-                            border-bottom: 2px solid #0E73F6;
-                        }
-                    }
-                }
-            }
-
-            .table {
-                max-width: 1091px;
-                width: 100%;
-                border-collapse: collapse;
-
-                tbody {
-                    tr {
-                        &:nth-child(odd) {
-                            background-color: #F4F6FA;
-                        }
-
-                    }
-                }
-
-                th {
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #1A2024;
-                }
-
-                td {
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: #303940;
-                }
-
-                th, td {
-                    text-align: left;
-                    border: 1px solid #E5E9EB;
-                    padding-left: 16px;                    
-                }
-
-                .unpaid {
-                    color: #0452C8;
-                    background-color: #D7EDFF;
-                    font-size: 14px;
-                    font-weight: 500;
-                    padding: 4px 36px;
-                    border-radius: 6px;
-                }
-
-                .overdue {
-                    color: #F2271C;
-                    background-color: #FDDFDD;
-                    font-size: 14px;
-                    font-weight: 500;
-                    padding: 4px 31px;
-                    border-radius: 6px;
-                }
-
-
-                .checkBox {
-                    width: 48px;
-                    height: 48px;
-                    text-align: center;
-                    padding: 0;
-
-                input {
-                        width: 20px;
-                        height: 20px;
-                        background-color: #F6F8F9;
-                        border-radius: 4px;
-                        border: 1px solid #B0BABF;
-                    }
-                }
-
-                .name {
-                    width: 183px;
-                    
-                }
-
-                .amount {
-                    width: 240px;
-                }
-
-                .inv {
-                    width: 240px;
-                }
-
-                .status {
-                    width: 152px;
-                }
-
-                .dates {
-                    width: 114px;
-                }
-                
-            }
-        }
-    }
+  }
 }
+
+@media screen and (max-width: 670px) {
+  .tableWrapper {
+   
+    .table {
+    overflow-y: scroll;
+    width: 100%;
+      
+
+    //   .name {
+    //     width: 10px;
+    //   }
+
+    //   .amount {
+    //     width: 100px;
+    //   }
+
+    //   .inv {
+    //     width: 200px;
+    //   }
+
+    //   .status {
+    //     width: 120px;
+    //   }
+
+    //   .dates {
+    //     width: 90px;
+    //   }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+    .tableWrapper {
+      width: 90%;
+      // margin-top: 20px;
+      margin: 0 auto;
+  
+      .tableHeading {
+        margin-top: 70px;
+      }
+    }
+  }

@@ -36,6 +36,7 @@ const Todo = () => {
         console.log('response', {...res})
         getTodos()
       })
+      setNewTodo('');
       getTodos();
     } catch (error) {
       console.error(error.message);
@@ -99,9 +100,9 @@ const Todo = () => {
                 <label
                 // htmlFor="checkbox"
                 onClick={() => onToggleDone(todosData.id, todosData.done)}
-                style={{
-                      textDecoration: todosData.done ? "line-through" : "none",
-                }}
+                // style={{
+                //       textDecoration: todosData.done ? "line-through" : "none",
+                // }}
                 > 
                  <input
                     type="checkbox"
@@ -114,9 +115,9 @@ const Todo = () => {
                 />
                 <span
                     // onClick={() => onToggleDone(todosData.id, todosData.done)}
-                    // style={{
-                    //   textDecoration: todosData.done ? "line-through" : "none",
-                    // }}
+                    style={{
+                      textDecoration: todosData.done ? "line-through" : "none",
+                    }}
                   >
                     {todosData.label}
                   </span>

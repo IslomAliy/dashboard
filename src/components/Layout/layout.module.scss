@@ -5,3 +5,19 @@
     max-width: 1123px;
     margin: 0 auto;
 }
+
+@media screen and (max-width: 1140px) {
+    .layoutWrapper {
+        width: 100%;
+        max-width: 900px;
+    }    
+}
+
+@media screen and (max-width: 905px) {
+    .layoutWrapper {
+        width: 100%;
+        max-width: 700px;
+    }    
+}
+
+    

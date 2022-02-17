@@ -5,3 +5,13 @@
     width: 100%;
     margin-top: 56px;
 }   
+
+@media screen and (max-width: 700px) {
+    .TodoProjectsWrapper {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      row-gap: 30px;
+      width: 100%;
+    }
+  }

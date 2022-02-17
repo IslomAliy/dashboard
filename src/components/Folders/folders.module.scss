@@ -202,3 +202,37 @@
     }
   }
 }
+
+@media screen and (max-width: 905px) {
+  .folders {
+    display: flex;
+    justify-content: space-between;
+    // flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .foldersWrapper {
+    width: 90%;
+    margin: 0 auto; 
+    .folders {
+      display: flex;
+      justify-content: space-between;
+      // flex-direction: column;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .foldersWrapper {
+    .headSection {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+  
+      .greeting {
+        font-size: 24px;
+      }
+  }
+}}

@@ -1,89 +1,144 @@
 .projectsWrapper {
-    // max-width: 768px;
-    width: 65%;
- 
+  // max-width: 768px;
+  width: 65%;
 
-    .projectsHeading {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 32px;
-        // margin-bottom: 30px;
-    }
+  .projectsHeading {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    // margin-bottom: 30px;
+  }
 
-    .projectsCardWrapper{ 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-        max-height: 304px;
+  .projectsCardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-height: 304px;
 
     .projectsCard {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 6px;
+      background-color: #fff;
+      padding: 24px 12px 24px 24px;
+
+      .leftSide {
+        display: flex;
+        align-items: center;
+
+        .projectsImg {
+          margin-right: 16px;
+        }
+
+        .projectsName {
+          display: block;
+
+          .projectsText {
+            font-size: 12px;
+            font-weight: 400;
+            color: #000;
+          }
+
+          .projectsDate {
+            display: flex;
+            align-items: center;
+            margin-top: 4px;
+
+            img {
+              margin-right: 12px;
+            }
+
+            .date {
+              font-size: 14px;
+              font-weight: 500;
+              color: #84919a;
+            }
+          }
+        }
+      }
+
+      .rightSide {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 233px;
+        width: 100%;
+
+        .editBtn {
+          font-size: 14px;
+          font-weight: 500;
+          padding: 8px 24px;
+          border: 1px solid #eef0f2;
+          border-radius: 6px;
+          background-color: #fff;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .projectsWrapper {
+    .projectsCardWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      column-gap: 20px;
+      height: 70%;
+      max-height: 304px;
+
+      .projectsCard {
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-radius: 6px;
         background-color: #fff;
-        padding: 24px 12px 24px 24px;    
+        padding: 22px 10px 22px 22px;
+        margin-top: 4px;
 
         .leftSide {
-            display: flex;
-            align-items: center;
+            .projectsDate {
+                display: flex;
+                justify-content: space-between;
 
-            .projectsImg {
-                margin-right: 16px;
-            }
-
-            .projectsName {
-                display: block;
-
-                .projectsText {
-                    font-size: 12px;
-                    font-weight: 400;
-                    color: #000;
-                }
-
-                .projectsDate {
-                    display: flex;
-                    align-items: center;
-                    margin-top: 4px;
-
-                    img {
-                        margin-right: 12px;
-                    }
-
-                    .date {
-                        font-size: 14px;
-                        font-weight: 500;
-                        color: #84919A;
-                    }
+                .date {
+                    width: 100%;
                 }
             }
         }
-
-        .rightSide {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 233px;
-            width: 100%;
-
-
-            .editBtn {
-                font-size: 14px;
-                font-weight: 500;
-                padding: 8px 24px;
-                border: 1px solid #EEF0F2;
-                border-radius: 6px;
-                background-color: #fff;
-
-                &:active {
-                    transform: scale(0.95);
-                    
-                }
-            }
-
-        }
+}
     }
-}
+
+
+    .rightSide {
+        img {
+          display: none;
+        }
+      }
+  }
 }
 
+@media screen and (max-width: 700px) {
+  .projectsWrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+//   .rightSide {
+
+@media screen and (max-width: 700px) {
+  .projectsWrapper {
+    .rightSide {
+      img {
+        display: none;
+      }
+    }
+  }
+}

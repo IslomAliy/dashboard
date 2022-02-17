@@ -46,3 +46,46 @@
         }
     }
 }
+
+@media screen and (max-width: 905px) {
+    .folderWrapper {
+        width: 33%;
+
+        .folderInner {
+            max-width: 310px;
+            width: 100%;
+            margin: 0 auto; 
+            padding: 30px 20px 30px 20px;
+        }
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .folderWrapper {
+        width: 32%;
+
+        // .folderInner {
+        //     max-width: 310px;
+        //     width: 100%;
+        //     margin: 0 auto; 
+        //     padding: 30px 20px 30px 20px;
+        // }
+    }
+  }
+
+// folderDetails
+
+@media screen and (max-width: 600px) {
+    .folderWrapper {
+       .folderDetails {
+           display: flex;
+           justify-content: center;
+           flex-direction: column;
+           column-gap: 10px;
+
+           .projects {
+                margin-bottom: 5px;
+        }
+       }
+    }
+  }
