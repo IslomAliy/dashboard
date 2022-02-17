@@ -63,7 +63,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 233px;
+        max-width: 170px;
         width: 100%;
 
         .editBtn {
@@ -78,6 +78,181 @@
             transform: scale(0.95);
           }
         }
+
+        .deleteBtn {
+          font-size: 14px;
+          font-weight: 500;
+          padding: 8px 20px;
+          border: 1px solid #eef0f2;
+          border-radius: 6px;
+          color: #fff;
+          background-color: #dc3545;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  background-color: #000;
+  opacity: 0.8;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.modal {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: #fff;
+  max-width: 640px;
+  height: 596px;
+  width: 100%;
+  // height: 100%;
+  border-radius: 6px;
+  z-index: 5;
+
+  .modalWrapper {
+    padding: 16px;
+
+    .modalHeading {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a2024;
+    }
+
+    .modalForm {
+      padding: 16px 0 16px 0;
+
+      .inputForms {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        border-top: 1px solid #e5e9eb;
+        border-bottom: 1px solid #e5e9eb;
+      }
+
+      .inputField {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:not(last-child) {
+          margin-bottom: 16px;
+        }
+
+        label {
+          max-width: 168px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #303940;
+        }
+
+        input {
+          font-size: 14px;
+          font-weight: 400;
+          color: #9aa6ac;
+          border: 1px solid #e5e9eb;
+          border-radius: 6px;
+          max-width: 424px;
+          width: 100%;
+          padding: 8px 16px;
+        }
+      }
+      
+      .fileUploadField{
+        display: flex;
+        margin-bottom: 16px;
+      
+        
+        label {
+            max-width: 168px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #303940;
+            margin-right: 23%;
+         }
+
+         input {
+            padding: 92px 110px;
+            border: 1px solid #e5e9eb ;
+         }
+
+    }
+
+      .membersField {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:not(last-child) {
+          margin-bottom: 16px;
+        }
+
+        label {
+          max-width: 168px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #303940;
+        }
+
+        select {
+          font-size: 14px;
+          font-weight: 400;
+          color: #9aa6ac;
+          border: 1px solid #e5e9eb;
+          border-radius: 6px;
+          max-width: 424px;
+          width: 100%;
+          padding: 8px 16px;
+        }
+
+        select:required:invalid {
+            color: gray;
+          }
+        
+        option[value=""][disabled] {
+            display: none;
+        }
+
+      }
+
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 5%;
+
+      button {
+        padding: 6px 56px;
+        border: 1px solid #e5e9eb;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .cancelBtn {
+        background-color: #fff;
+        color: #0e73f6;
+        margin-right: 16px;
+      }
+
+      .saveBtn {
+        background-color: #0e73f6;
+        color: #fff;
       }
     }
   }

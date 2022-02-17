@@ -117,6 +117,42 @@
           padding: 8px 16px;
         }
       }
+
+      .dateField {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:not(last-child) {
+          margin-bottom: 16px;
+        }
+
+        label {
+          max-width: 168px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #303940;
+        }
+
+        input {
+          font-size: 14px;
+          font-weight: 400;
+          color: #9aa6ac;
+          border: 1px solid #e5e9eb;
+          border-radius: 6px;
+          max-width: 424px;
+          width: 100%;
+          padding: 8px 16px;
+        }
+        .datesWrapper {
+          display: flex;
+          justify-content: space-between;
+          .DatePicker {
+            width: 95%;
+          }
+        }
+        
+      }
       
       .fileUploadField{
         display: flex;

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styles from "./todo.module.scss";
-import { addTodos } from "../../redux/actions/todosAction";
+// import { addTodos } from "../../redux/actions/todosAction";
 import {
   addDoc,
   collection,
@@ -22,20 +22,24 @@ const Todo = () => {
   const [todosState, setTodosState] = useState([]);
   const todosCollection = collection(db, "todos");
   const [isChecked, setIsChecked] = useState(false)
-  console.log(todosState);
+  // console.log(todosState);
 
   const getTodos = async () => {
     const data = await getDocs(todosCollection);
     setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, done: doc.data().done })));
   };
 
+  const cancelTodos = (e) => {
+    e.preventDefault();
+    setIsOpen(false)
+    setNewTodo('')
+  }
+
   const addTodo = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(todosCollection, { label: newTodo, done: checkboxValue }).then(res => {
-        console.log('response', {...res})
-        getTodos()
-      })
+      await addDoc(todosCollection, { label: newTodo, done: checkboxValue })
+      getTodos();
       setNewTodo('');
       getTodos();
     } catch (error) {
@@ -61,7 +65,7 @@ const Todo = () => {
     const todoDoc = doc(db, "todos", id);
     const changeDone = { done: done = !done };
     await updateDoc(todoDoc, changeDone);
-    console.log(done);
+    // console.log(done);
     getTodos();
   };
 
@@ -167,8 +171,8 @@ const Todo = () => {
                   <button
                     type="button"
                     className={styles.cancelBtn}
-                    onClick={() => setIsOpen(false)}
-                  >
+                    onClick={cancelTodos}
+                  > 
                     Cancel
                   </button>
                   <button type="submit" className={styles.saveBtn}>
