@@ -17,6 +17,8 @@ const Projects = ({
   setStartDate,
   endDate,
   setEndDate,
+  image,
+  setImage
 }) => {
   // const projects = useSelector((state) => state.projects.slice(-3));
   // const [projectsData, setProjectsData] = useState([]);
@@ -48,6 +50,14 @@ const Projects = ({
 
   // .sort(function(a, b){return a - b})
 
+  const handleImageChange = (event) => {
+    setImage({
+      file: URL.createObjectURL(event.target.files[0])
+      
+    }
+  )
+  }
+
   return (
     <>
       <div className={styles.projectsWrapper}>
@@ -57,7 +67,7 @@ const Projects = ({
             <div className={styles.projectsCard} key={projectData.timeStamp}>
               <div className={styles.leftSide}>
                 <img
-                  src="/images/default_image.svg"
+                  src={projectData.url}
                   alt="project-img"
                   className={styles.projectsImg}
                 />
@@ -126,7 +136,8 @@ const Projects = ({
                   </div>
                   <div className={styles.fileUploadField}>
                     <label htmlFor="status">Image </label>
-                    <input type="file" placeholder="please choose file" />
+                    <input type="file" placeholder="please choose file" onChange={handleImageChange} />
+                    <img src={image.file} alt="input-image" />
                   </div>
                   <div className={styles.membersField}>
                     <label htmlFor="title">Members </label>

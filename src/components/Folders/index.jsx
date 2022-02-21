@@ -27,6 +27,13 @@ const Folders = ({
   setStartDate,
   endDate,
   setEndDate,
+  image,
+  setImage,
+  folder,
+  setFolder,
+  fileUpload,
+  isPressed,
+  setIsPressed
 }) => {
   // const dispatch = useDispatch();
   // const [isOpen, setIsOpen] = useState(false);
@@ -52,14 +59,51 @@ const Folders = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     addProject();
+    setIsPressed(true)  
   };
 
   const cancelBtn = () => {
     setIsOpen(false);
+    setIsPressed(false)
     setNewProject("");
+    setImage({
+      file: null,
+      uploaded: "",
+    });
   };
 
-  return (
+  const handleImageChange = (event) => {
+    event.preventDefault();
+    fileUpload({
+        file: URL.createObjectURL(event.target.files[0]),
+        uploaded: event.target.files[0],
+      })
+
+    // upload to storage then set the image url
+    // setImage({
+    //   file: URL.createObjectURL(event.target.files[0]),
+    //   uploaded: event.target.files[0],
+  
+    // }, () => {
+    //   // fileUpload()
+    // });
+    // 
+  };
+
+  const handleClickOverlay = () => {
+    setIsOpen(false);
+    setImage({
+      file: null,
+      uploaded: "",
+    });
+  };
+
+  const changeSelectValue = (newValue) => {
+    setFolder(newValue)
+    console.log('newValue', newValue)
+  }
+
+  return ( 
     <Layout>
       <>
         <div className={styles.foldersWrapper}>
@@ -97,7 +141,7 @@ const Folders = ({
 
         {isOpen && (
           <>
-            <div className={styles.overlay} onClick={() => setIsOpen(false)} />
+            <div className={styles.overlay} onClick={handleClickOverlay} />
             <div className={styles.modal}>
               <div className={styles.modalWrapper}>
                 <h1 className={styles.modalHeading}>Creating new project</h1>
@@ -113,10 +157,6 @@ const Folders = ({
                         required
                       />
                     </div>
-                    {/* <div className={styles.inputField}>
-                      <label htmlFor="title">Description </label>
-                      <input type="text" placeholder="Description" />
-                    </div> */}
                     <div className={styles.dateField}>
                       <label htmlFor="title">Date </label>
                       <div className={styles.datesWrapper}>
@@ -127,6 +167,7 @@ const Folders = ({
                           selectsStart
                           startDate={startDate}
                           endDate={endDate}
+                          required
                         />
                         <DatePicker
                           className={styles.DatePicker}
@@ -136,16 +177,33 @@ const Folders = ({
                           startDate={startDate}
                           endDate={endDate}
                           minDate={startDate}
+                          required
                         />
                       </div>
                     </div>
                     <div className={styles.fileUploadField}>
                       <label htmlFor="status">Image </label>
-                      <input type="file" placeholder="please choose file" />
+                      {image.file == null && (
+                        <input
+                          type="file"
+                          accept=".jpg, .png, .jpeg"
+                          onChange={handleImageChange}
+                          required
+                        />
+                      )}
+                      {/* style={`${image.file ? display: 'none' : ''}`} */}
+                      {image.file !== null && (
+                        <img src={image.file} alt="uploaded-picture" />
+                      )}
                     </div>
                     <div className={styles.membersField}>
                       <label htmlFor="title">Members </label>
-                      <select>
+                      <select
+                        onChange={(e) => changeSelectValue(e.target.value)}
+                        value={folder}
+                        required
+                      >
+                        <option value="" selected disabled hidden> Select folder </option>
                         <option value="favourites">Favourites</option>
                         <option value="trips">Trips</option>
                         <option value="work">Work</option>
@@ -164,9 +222,10 @@ const Folders = ({
                     <button
                       type="submit"
                       className={styles.saveBtn}
-                      onClick={() => console.log("pressed")}
+                      disabled={isPressed}
+                      onClick={() => console.log('pressed')}
                     >
-                      Save
+                      {isPressed ? 'Loading' : 'Save'}
                     </button>
                   </div>
                 </form>

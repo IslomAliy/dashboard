@@ -11,7 +11,9 @@ const TodoProjectsWrapper = ({
   startDate,
   setStartDate,
   endDate,
-  setEndDate
+  setEndDate,
+  image,
+  setImage
 }) => {
   return (
     <>
@@ -27,6 +29,8 @@ const TodoProjectsWrapper = ({
             setStartDate={setStartDate}
             endDate={endDate}
             setEndDate={setEndDate}
+            image={image}
+            setImage={setImage}
           />
         </div>
       </Layout>
