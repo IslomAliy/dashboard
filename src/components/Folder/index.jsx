@@ -19,7 +19,7 @@ const Folder = (props) => {
           <h2 className={styles.folderName}>{props.folderName}</h2>
           <div className={styles.folderDetails}>
             <p className={styles.projects}>{props.projects} projects</p>
-            <p className={styles.files}>{props.files} files</p>
+            {/* <p className={styles.files}>{props.files} files</p> */}
           </div>
         </div>
       </div>

@@ -1,13 +1,14 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Folder from "../Folder";
 import Layout from "../Layout";
 import styles from "./folders.module.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { getDocs, collection} from "firebase/firestore";
 // import { addProject } from "../../redux/actions/projectsAction";
 // import { useDispatch } from "react-redux";
 // import { addDoc, collection } from "firebase/firestore";
-// import { db } from "../../firebase-config";
+import { db } from "../../firebase-config";
 
 // let timestamp = Math.round(new Date().getTime() / 1000)
 
@@ -55,6 +56,58 @@ const Folders = ({
   // useEffect(() => {
   //   addProject();
   // }, [newProject])
+  const [favourites, setFavourites] = useState('')
+  const [trips, setTrips] = useState('')
+  const [work, setWork] = useState('')
+  const projectsCollection = collection(db, "projects");
+  console.log([{trips, work, favourites }])
+
+  const getProjects = async () => {
+    const data = await getDocs(projectsCollection);
+    setFavourites(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          timeStamp: doc.data().timeStamp,
+          startDate: doc.data().startDate,
+          endDate: doc.data().endDate,
+          url: doc.data().url,
+          folder: doc.data().folder,
+        }))
+        .filter((el) => el.folder === "favourites").length
+    )
+    setTrips(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          timeStamp: doc.data().timeStamp,
+          startDate: doc.data().startDate,
+          endDate: doc.data().endDate,
+          url: doc.data().url,
+          folder: doc.data().folder,
+        }))
+        .filter((el) => el.folder === "trips").length
+    )
+    setWork(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          timeStamp: doc.data().timeStamp,
+          startDate: doc.data().startDate,
+          endDate: doc.data().endDate,
+          url: doc.data().url,
+          folder: doc.data().folder,
+        }))
+        .filter((el) => el.folder === "work").length
+    )
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -121,22 +174,19 @@ const Folders = ({
             <Folder
               img="/images/folder.svg"
               folderName="Favourites"
-              projects="3"
-              files="43"
+              projects={favourites}
               link="/favourites"
             />
             <Folder
               img="/images/trips-folder.svg"
               folderName="Trips"
-              projects="2"
-              files="7"
+              projects={trips}
               link="/trips"
             />
             <Folder
               img="/images/work-folder.svg"
               folderName="Work"
-              projects="11"
-              files="16"
+              projects={work}
               link="/work"
             />
           </div>
