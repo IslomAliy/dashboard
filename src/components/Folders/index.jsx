@@ -144,11 +144,15 @@ const Folders = ({
   };
 
   const handleClickOverlay = () => {
+    setNewProject('')
+    setStartDate(Date.now())
+    setEndDate(Date.now())
     setIsOpen(false);
     setImage({
       file: null,
       uploaded: "",
     });
+    setFolder('')
   };
 
   const changeSelectValue = (newValue) => {
