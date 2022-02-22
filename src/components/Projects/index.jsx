@@ -109,9 +109,6 @@ const Projects = ({
       url: url,
       folder: folder
     })
-
-    
-
   };
 
   const cancelBtn = () => {

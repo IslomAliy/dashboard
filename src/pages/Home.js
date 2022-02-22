@@ -3,7 +3,6 @@ import Folders from "../components/Folders";
 import Menu from "../components/Menu";
 import Table from "../components/Table";
 import TodoProjectsWrapper from "../components/TodoProjectsWrapper";
-
 import { db } from "../firebase-config";
 import { storage } from "../firebase-config";
 import {
@@ -22,11 +21,13 @@ import "react-datepicker/dist/react-datepicker.css";
 const Home = () => {
   let timestamp = Math.round(new Date().getTime() / 1000);
   const [startDate, setStartDate] = useState(Date.now());
+  // const [label, setLabel] = useState('')
   const [endDate, setEndDate] = useState(Date.now());
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [projectsData, setProjectsData] = useState([]);
   const [newProject, setNewProject] = useState("");
+  const [projectId, setProjectId] = useState(""); 
   const projectsCollection = collection(db, "projects");
   const [folder, setFolder] = useState("");
   const [image, setImage] = useState({
