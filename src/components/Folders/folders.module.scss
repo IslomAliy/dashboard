@@ -38,6 +38,11 @@
   .folders {
     display: flex;
     justify-content: space-between;
+
+    .folderLink {
+      text-decoration: none;
+      width: 800px;
+    }
   }
 }
 

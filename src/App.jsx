@@ -19,6 +19,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Home from "./pages/Home";
+import Favourites from "./components/Favourites";
+import Trips from './components/Trips'
+import Work from './components/Work'
 
 // let timestamp = Math.round(new Date().getTime() / 1000);
 
@@ -152,6 +155,9 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Home/>}/> 
+          <Route path="/favourites" element={<Favourites/>}/>
+          <Route path="/trips" element={<Trips/>}/>
+          <Route path="/work" element={<Work/>}/>
         </Routes>
       </Router>
       {/* <Menu />

@@ -66,7 +66,7 @@ const Todo = () => {
 
   const onToggleDone = async (id, done) => {
     const todoDoc = doc(db, "todos", id);
-    const changeDone = { done: done = !done };
+    const changeDone = { done: !done };
     await updateDoc(todoDoc, changeDone);
     // console.log(done);
     getTodos();
@@ -103,7 +103,7 @@ const Todo = () => {
             </button>
           </div>
         </div>
-        
+
         <div className={styles.todoArea}>
           {todosState.map((todosData) => (
             <div className={styles.todoElement} key={todosData.timeStamp}>
@@ -121,6 +121,7 @@ const Todo = () => {
                 //       textDecoration: todosData.done ? "line-through" : "none",
                 // }}
                 > 
+                 {isLoading ? <Skeleton width={20}/> : 
                  <input
                     type="checkbox"
                     name="checkbox"
@@ -128,15 +129,14 @@ const Todo = () => {
                     value={isChecked}
                     onChange={e => setIsChecked(e.target.value)}
                     className={styles.checkbox}
-                    // onChange={(e) => setIsChecked(e.target.value)}
-                />
+                />}
                 <span
                     // onClick={() => onToggleDone(todosData.id, todosData.done)}
                     style={{
                       textDecoration: todosData.done ? "line-through" : "none",
                     }}
                   >
-                    { isLoading ? <Skeleton width={70} /> : todosData.label}
+                    { isLoading ? <Skeleton width={100} /> : todosData.label}
                   </span>
                 </label>
                   

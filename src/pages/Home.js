@@ -40,6 +40,8 @@ const Home = () => {
   console.log("image = ", image);
   console.log("url", url);
   console.log(folder, "inside app");
+  console.log({newProject, startDate, endDate, })
+  console.log('prData', projectsData)
 
   const getProjects = async () => {
     const data = await getDocs(projectsCollection);
@@ -109,8 +111,6 @@ const Home = () => {
   };
 
   const addProject = async () => {
-    console.log("addURl", url);
-
     await addDoc(projectsCollection, {
       label: newProject,
       timeStamp: timestamp,
@@ -135,7 +135,6 @@ const Home = () => {
     getProjects();
   }, []);
 
-  console.log("projectsData", projectsData);
 
   const deleteProject = async (id) => {
     const projectDoc = doc(db, "projects", id);
@@ -169,6 +168,8 @@ const Home = () => {
       <TodoProjectsWrapper
         projectsData={projectsData}
         deleteProject={deleteProject}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
         isEditOpen={isEditOpen}
         setIsEditOpen={setIsEditOpen}
         startDate={startDate}
@@ -177,6 +178,18 @@ const Home = () => {
         setEndDate={setEndDate}
         image={image}
         setImage={setImage}
+        uploadedImage={uploadedImage}
+        setUploadedImage={setUploadedImage}
+        folder={folder}
+        setFolder={setFolder}
+        isPressed={isPressed}
+        setIsPressed={setIsPressed}
+        fileUpload={fileUpload}
+        newProject={newProject}
+        setNewProject={setNewProject}
+        getProjects={getProjects}
+        url={url}
+        setUrl={setUrl}
       />
       <Table />
     </div>

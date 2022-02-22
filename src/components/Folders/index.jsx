@@ -123,18 +123,21 @@ const Folders = ({
               folderName="Favourites"
               projects="3"
               files="43"
+              link="/favourites"
             />
             <Folder
               img="/images/trips-folder.svg"
               folderName="Trips"
               projects="2"
               files="7"
+              link="/trips"
             />
             <Folder
               img="/images/work-folder.svg"
               folderName="Work"
               projects="11"
               files="16"
+              link="/work"
             />
           </div>
         </div>
@@ -203,7 +206,7 @@ const Folders = ({
                         value={folder}
                         required
                       >
-                        <option value="" selected disabled hidden> Select folder </option>
+                        <option value="" defaultValue disabled hidden> Select folder </option>
                         <option value="favourites">Favourites</option>
                         <option value="trips">Trips</option>
                         <option value="work">Work</option>

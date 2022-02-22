@@ -13,7 +13,17 @@ const TodoProjectsWrapper = ({
   endDate,
   setEndDate,
   image,
-  setImage
+  setImage,
+  isPressed,
+  setIsPressed,
+  newProject,
+  setNewProject,
+  fileUpload,
+  folder,
+  setFolder,
+  getProjects,
+  url,
+  setUrl
 }) => {
   return (
     <>
@@ -31,6 +41,16 @@ const TodoProjectsWrapper = ({
             setEndDate={setEndDate}
             image={image}
             setImage={setImage}
+            newProject={newProject}
+            setNewProject={setNewProject}
+            isPressed={isPressed}
+            setIsPressed={setIsPressed}
+            fileUpload={fileUpload}
+            folder={folder}
+            setFolder={setFolder}
+            getProjects={getProjects}
+            url={url}
+            setUrl={setUrl}
           />
         </div>
       </Layout>
