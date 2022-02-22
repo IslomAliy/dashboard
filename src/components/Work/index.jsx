@@ -143,7 +143,7 @@ const Work = () => {
       <Layout>
         <Menu />
         <div className={styles.favouritesWrapper}>
-          <h2 className={styles.favouritesHeading}>Projects which belong to Trips folder show up there.</h2>
+          <h2 className={styles.favouritesHeading}>Projects which belong to Work folder show up there.</h2>
           <div className={styles.projectsCardWrapper}>
             {projectsData.map((projectData) => (
               <div className={styles.projectsCard} key={projectData.timeStamp}>
