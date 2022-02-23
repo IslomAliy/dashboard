@@ -113,6 +113,9 @@ const Folders = ({
     e.preventDefault();
     addProject();
     setIsPressed(true)  
+    setFavourites()
+    setTrips()
+    setWork()
   };
 
   const cancelBtn = () => {

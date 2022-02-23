@@ -22,6 +22,7 @@ import Home from "./pages/Home";
 import Favourites from "./components/Favourites";
 import Trips from './components/Trips'
 import Work from './components/Work'
+import MyProjects from "./components/MyProjects";
 
 // let timestamp = Math.round(new Date().getTime() / 1000);
 
@@ -158,6 +159,7 @@ function App() {
           <Route path="/favourites" element={<Favourites/>}/>
           <Route path="/trips" element={<Trips/>}/>
           <Route path="/work" element={<Work/>}/>
+          <Route path="/myprojects" element={<MyProjects/>}/>
         </Routes>
       </Router>
       {/* <Menu />

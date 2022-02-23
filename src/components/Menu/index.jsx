@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Layout from '../Layout';
 import styles from './menu.module.scss'
 
@@ -9,8 +9,8 @@ const Menu = () => {
         <div className={styles.menu}>
             {/* <img src="/images/settings.svg" alt="settings-icon" /> */}
             <ul className={styles.menuItems}>
-                <li><Link to="/" className={styles.active}>Dashboard</Link></li>
-                <li><a href="/">My projects</a></li>
+                <li><NavLink to="/" activeclassname={styles.active}>Dashboard</NavLink></li>
+                <li><NavLink to="/myprojects" activeclassname={styles.active}>My projects</NavLink></li>
                 <li><a href="/">Calendar</a></li>
                 <li><a href="/">Finance</a></li>
                 <li><a href="/">Inbox</a></li>

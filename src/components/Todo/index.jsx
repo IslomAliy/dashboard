@@ -11,8 +11,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase-config";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Todo = () => {
   let timestamp = Math.round(new Date().getTime() / 1000);
@@ -24,45 +24,57 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState("");
   const [todosState, setTodosState] = useState([]);
   const todosCollection = collection(db, "todos");
-  const [isChecked, setIsChecked] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getTodos = async () => {
     const data = await getDocs(todosCollection);
-    setTodosState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, done: doc.data().done, timeStamp: doc.data().timeStamp})).sort((a,b) => a.timeStamp - b.timeStamp).reverse());
+    setTodosState(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          done: doc.data().done,
+          timeStamp: doc.data().timeStamp,
+        }))
+        .sort((a, b) => a.timeStamp - b.timeStamp)
+        .reverse()
+    );
   };
 
   const cancelTodos = (e) => {
     e.preventDefault();
-    setIsOpen(false)
-    setNewTodo('')
-  }
+    setIsOpen(false);
+    setNewTodo("");
+  };
 
   const addTodo = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(todosCollection, { label: newTodo, done: checkboxValue, timeStamp: timestamp})
+      await addDoc(todosCollection, {
+        label: newTodo,
+        done: checkboxValue,
+        timeStamp: timestamp,
+      });
       getTodos();
-      setNewTodo('');
+      setNewTodo("");
       getTodos();
     } catch (error) {
       console.error(error.message);
     }
 
-    setIsOpen(false)
+    setIsOpen(false);
   };
 
   useEffect(() => {
     getTodos();
   }, []);
 
-
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     setNewTodo(dispatch(addTodos(newTodo)));
-//     setNewTodo("");
-//   };
+  //   const handleSubmit = (event) => {
+  //     event.preventDefault();
+  //     setNewTodo(dispatch(addTodos(newTodo)));
+  //     setNewTodo("");
+  //   };
 
   const onToggleDone = async (id, done) => {
     const todoDoc = doc(db, "todos", id);
@@ -74,12 +86,11 @@ const Todo = () => {
 
   useEffect(() => {
     const loading = setTimeout(() => {
-      setIsLoading(false)
+      setIsLoading(false);
     }, 3000);
 
-    return () => clearTimeout(loading)
-
-  }, [])
+    return () => clearTimeout(loading);
+  }, []);
 
   // const onToggleDone = (todoID) => {
   //     const toggleTodo = todoState.find(item => item.id === todoID)
@@ -105,46 +116,106 @@ const Todo = () => {
         </div>
 
         <div className={styles.todoArea}>
-          {todosState.map((todosData) => (
-            <div className={styles.todoElement} key={todosData.timeStamp}>
-              <img
-                src="/images/change-order.svg"
-                alt="change-order"
-                className={styles.dragIcon}
-              />
+          {isLoading && (
+            <>
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
               <div className={styles.inputWrapper}>
-             
-                <label
-                // htmlFor="checkbox"
-                onClick={() => onToggleDone(todosData.id, todosData.done)}
-                // style={{
-                //       textDecoration: todosData.done ? "line-through" : "none",
-                // }}
-                > 
-                 {isLoading ? <Skeleton width={20}/> : 
-                 <input
-                    type="checkbox"
-                    name="checkbox"
-                    id="checkbox"
-                    value={isChecked}
-                    onChange={e => setIsChecked(e.target.value)}
-                    className={styles.checkbox}
-                />}
-                <span
-                    // onClick={() => onToggleDone(todosData.id, todosData.done)}
-                    style={{
-                      textDecoration: todosData.done ? "line-through" : "none",
-                    }}
-                  >
-                    { isLoading ? <Skeleton width={100} /> : todosData.label}
-                  </span>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
                 </label>
-                  
-                  
-                
               </div>
             </div>
-          ))}
+
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
+              <div className={styles.inputWrapper}>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
+              <div className={styles.inputWrapper}>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
+              <div className={styles.inputWrapper}>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
+              <div className={styles.inputWrapper}>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.todoElement}>
+              <Skeleton width={30} style={{marginRight: '20px'}}/>
+              <div className={styles.inputWrapper}>
+                <label>
+                  <span>{<Skeleton width={200} />}</span>
+                </label>
+              </div>
+            </div>
+            </>
+          )}
+          
+          {!isLoading &&
+            todosState.map((todosData) => (
+              <div className={styles.todoElement} key={todosData.timeStamp}>
+                <img
+                  src="/images/change-order.svg"
+                  alt="change-order"
+                  className={styles.dragIcon}
+                />
+                <div className={styles.inputWrapper}>
+                  <label
+                    // htmlFor="checkbox"
+                    onClick={() => onToggleDone(todosData.id, todosData.done)}
+                    // style={{
+                    //       textDecoration: todosData.done ? "line-through" : "none",
+                    // }}
+                  >
+                    {isLoading ? (
+                      <Skeleton width={20} />
+                    ) : (
+                      <input
+                        type="checkbox"
+                        name="checkbox"
+                        id="checkbox"
+                        value={isChecked}
+                        onChange={(e) => setIsChecked(e.target.value)}
+                        className={styles.checkbox}
+                      />
+                    )}
+                    <span
+                      // onClick={() => onToggleDone(todosData.id, todosData.done)}
+                      style={{
+                        textDecoration: todosData.done
+                          ? "line-through"
+                          : "none",
+                      }}
+                    >
+                      {isLoading ? <Skeleton width={100} /> : todosData.label}
+                    </span>
+                  </label>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -181,7 +252,7 @@ const Todo = () => {
                     type="button"
                     className={styles.cancelBtn}
                     onClick={cancelTodos}
-                  > 
+                  >
                     Cancel
                   </button>
                   <button type="submit" className={styles.saveBtn}>

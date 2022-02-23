@@ -1,5 +1,5 @@
 import styles from "./projects.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 // import { db } from '../../firebase-config'
 // import { collection, getDocs } from 'firebase/firestore'
@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 // import { ref as sRef, set,update} from "firebase/database";
 
 import { db } from "../../firebase-config";
+import Skeleton from "react-loading-skeleton";
 
 const Projects = ({
   projectsData,
@@ -40,6 +41,7 @@ const Projects = ({
 }) => {
   let timestamp = Math.round(new Date().getTime() / 1000);
   const [projectId, setProjectId] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
   // const [label, setLabel] = useState('')
 
   console.log("prid", projectId);
@@ -72,6 +74,16 @@ const Projects = ({
   // console.log('timestampp', projectsData.sort(function(a, b){return a.timeStamp - b.timeStamp}))
 
   // .sort(function(a, b){return a - b})
+
+
+  useEffect(() => {
+    const loading = setTimeout(() => {
+      setIsLoading(false)
+    }, 3500);
+
+    return () => clearTimeout(loading)
+
+  }, [])
 
   const handleEdit = async (id, label, startDate, endDate, url, folder) => {
     setProjectId(id);
@@ -149,7 +161,65 @@ const Projects = ({
       <div className={styles.projectsWrapper}>
         <h1 className={styles.projectsHeading}>Latest projects</h1>
         <div className={styles.projectsCardWrapper}>
-          {projectsData.map((projectData) => (
+          {isLoading && (
+            <>
+             <div className={styles.projectsCard}>
+              <div className={styles.leftSide}>
+                <Skeleton width={30} height={30}/>
+                <div className={styles.projectsName}>
+                  <p className={styles.projectsText} style={{marginLeft: '30px'}}>{ <Skeleton width={400} height={20}/>}</p>
+                  <div className={styles.projectsDate}>
+                    {/* <img src="/images/calendar_today.svg" alt="calendar" /> */}
+                    <p className={styles.date}>
+                      {<Skeleton width={150} style={{marginLeft: '30px'}}/>}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.rightSide}>
+                <Skeleton width={100} height={30}/>
+              </div>
+           </div>
+
+           <div className={styles.projectsCard}>
+              <div className={styles.leftSide}>
+                <Skeleton width={30} height={30}/>
+                <div className={styles.projectsName}>
+                  <p className={styles.projectsText} style={{marginLeft: '30px'}}>{ <Skeleton width={400} height={20}/>}</p>
+                  <div className={styles.projectsDate}>
+                    {/* <img src="/images/calendar_today.svg" alt="calendar" /> */}
+                    <p className={styles.date}>
+                      {<Skeleton width={150} style={{marginLeft: '30px'}}/>}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.rightSide}>
+                <Skeleton width={100} height={30}/>
+              </div>
+           </div>
+
+             <div className={styles.projectsCard}>
+              <div className={styles.leftSide}>
+                <Skeleton width={30} height={30}/>
+                <div className={styles.projectsName}>
+                  <p className={styles.projectsText} style={{marginLeft: '30px'}}>{ <Skeleton width={400} height={20}/>}</p>
+                  <div className={styles.projectsDate}>
+                    {/* <img src="/images/calendar_today.svg" alt="calendar" /> */}
+                    <p className={styles.date}>
+                      {<Skeleton width={150} style={{marginLeft: '30px'}}/>}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.rightSide}>
+                <Skeleton width={100} height={30}/>
+              </div>
+           </div>
+           </>
+          )}
+
+          {!isLoading && projectsData.map((projectData) => (
             <div className={styles.projectsCard} key={projectData.timeStamp}>
               <div className={styles.leftSide}>
                 <img
@@ -168,11 +238,6 @@ const Projects = ({
                 </div>
               </div>
               <div className={styles.rightSide}>
-                {/* <div className={styles.members}>
-                  <img src="/images/first-man.svg" alt="first-member" />
-                  <img src="/images/second-man.svg" alt="second-member" />
-                  <img src="/images/third-man.svg" alt="third-member" />
-                </div> */}
                 <button
                   type="button"
                   className={styles.editBtn}
@@ -201,6 +266,7 @@ const Projects = ({
               </div>
             </div>
           ))}
+          
         </div>
       </div>
       {isEditOpen && (
