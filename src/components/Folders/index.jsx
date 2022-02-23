@@ -113,6 +113,7 @@ const Folders = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    getProjects();
     addProject();
     setIsPressed(true)  
     setFavourites()

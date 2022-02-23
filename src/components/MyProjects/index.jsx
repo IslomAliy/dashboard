@@ -33,7 +33,9 @@ const MyProjects = () => {
     file: null,
     uploaded: "",
   });
+  const [searchTerm, setSearchTerm] = useState("");
   const projectsCollection = collection(db, "projects");
+  console.log("len", projectsData.length);
 
   useEffect(() => {
     const loading = setTimeout(() => {
@@ -155,9 +157,33 @@ const MyProjects = () => {
       <Layout>
         <Menu />
         <div className={styles.favouritesWrapper}>
-          <h2 className={styles.favouritesHeading}>
-            All projects show up there.
-          </h2>
+          <div className={styles.favuritesHeader}>
+            {isLoading && (
+              <h2 className={styles.favouritesHeading}>
+                <Skeleton width={400} />
+              </h2>
+            )}
+            {!isLoading && (
+              <h2 className={styles.favouritesHeading}>
+                All
+                {
+                  <span style={{ color: "#dc3545" }}>
+                    {" "}
+                    {projectsData.length}{" "}
+                  </span>
+                }
+                projects show up there.
+              </h2>
+            )}
+
+            <input
+              type="text"
+              name="search"
+              className={styles.search}
+              placeholder="Type to search project"
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
           <div className={styles.projectsCardWrapper}>
             {isLoading && (
               <>
@@ -217,8 +243,15 @@ const MyProjects = () => {
               </>
             )}
 
-            {!isLoading &&
-              projectsData.map((projectData) => (
+            {!isLoading &&  
+              projectsData.filter((value) => {
+                  if(searchTerm == ""){
+                      return value;
+                  }
+                  else if(value.label.toLowerCase().includes(searchTerm.toLowerCase())){
+                      return value;
+                  }
+              }).map((projectData) => (
                 <div
                   className={styles.projectsCard}
                   key={projectsData.timeStamp}
