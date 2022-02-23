@@ -62,6 +62,8 @@ const Folders = ({
   const projectsCollection = collection(db, "projects");
   console.log([{trips, work, favourites }])
 
+  
+
   const getProjects = async () => {
     const data = await getDocs(projectsCollection);
     setFavourites(
@@ -181,7 +183,7 @@ const Folders = ({
             <Folder
               img="/images/folder.svg"
               folderName="Favourites"
-              projects={favourites}
+              projects={favourites }
               link="/favourites"
             />
             <Folder
