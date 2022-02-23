@@ -28,6 +28,14 @@ const Trips = () => {
   });
   const projectsCollection = collection(db, "projects");
 
+  useEffect(() => {
+    const loading = setTimeout(() => {
+      setIsLoading(false);
+    }, 3500);
+
+    return () => clearTimeout(loading);
+  }, []);
+
 
   const getProjects = async () => {
     setIsLoading(true)
@@ -145,7 +153,66 @@ const Trips = () => {
         <div className={styles.favouritesWrapper}>
           <h2 className={styles.favouritesHeading}>Projects which belong to Trips folder show up there.</h2>
           <div className={styles.projectsCardWrapper}>
-            {projectsData.map((projectData) => (
+
+          {isLoading && (
+              <>
+              <div className={styles.projectsCard}>
+                <div className={styles.leftSide}>
+                  <Skeleton
+                    width={50}
+                    height={40}
+                    style={{ marginRight: "30px" }}
+                  />
+                  <div className={styles.projectsName}>
+                    <p className={styles.projectsText}>
+                      {<Skeleton width={400} />}
+                    </p>
+                    <div className={styles.projectsDate}>
+                      <p className={styles.date}>{<Skeleton width={60} />}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.projectsCard}>
+                <div className={styles.leftSide}>
+                  <Skeleton
+                    width={50}
+                    height={40}
+                    style={{ marginRight: "30px" }}
+                  />
+                  <div className={styles.projectsName}>
+                    <p className={styles.projectsText}>
+                      {<Skeleton width={400} />}
+                    </p>
+                    <div className={styles.projectsDate}>
+                      <p className={styles.date}>{<Skeleton width={60} />}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.projectsCard}>
+                <div className={styles.leftSide}>
+                  <Skeleton
+                    width={50}
+                    height={40}
+                    style={{ marginRight: "30px" }}
+                  />
+                  <div className={styles.projectsName}>
+                    <p className={styles.projectsText}>
+                      {<Skeleton width={400} />}
+                    </p>
+                    <div className={styles.projectsDate}>
+                      <p className={styles.date}>{<Skeleton width={60} />}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </>
+            )}
+
+            {!isLoading && projectsData.map((projectData) => (
               <div className={styles.projectsCard} key={projectData.timeStamp}>
                 <div className={styles.leftSide}>
                   <img
@@ -155,7 +222,7 @@ const Trips = () => {
                   />
                   <div className={styles.projectsName}>
                     <p className={styles.projectsText}>
-                      {isLoading ? <Skeleton width={70} /> : projectData.label}
+                      { projectData.label}
                     </p>
                     <div className={styles.projectsDate}>
                       <img src="/images/calendar_today.svg" alt="calendar" />

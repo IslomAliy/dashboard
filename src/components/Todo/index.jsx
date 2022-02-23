@@ -87,7 +87,7 @@ const Todo = () => {
   useEffect(() => {
     const loading = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 3500);
 
     return () => clearTimeout(loading);
   }, []);
