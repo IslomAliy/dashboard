@@ -327,7 +327,7 @@ const Projects = ({
                     )}
                   </div>
                   <div className={styles.membersField}>
-                    <label htmlFor="title">Members </label>
+                    <label htmlFor="title">Folders </label>
                     <select
                       onChange={(e) => changeSelectValue(e.target.value)}
                       value={folder}

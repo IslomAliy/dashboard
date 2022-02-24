@@ -1,17 +1,70 @@
 .favouritesWrapper {
-  .favuritesHeader {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 40px;
-    .favouritesHeading {
 
+
+  .favuritesHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+    .favouritesHeading {
+      width: 50%;
     }
 
-    .search {
-        width: 250px;
+    .filterSide {
+      width: 60%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .search {
+        max-width: 40%;
         border: 1px solid #dee1e4;
         border-radius: 6px;
-        padding-left: 10px;
+        padding: 7px 0 7px 10px;
+      }
+
+      .dateField {
+        display: flex;
+        justify-content: space-between;
+        max-width: 60%;
+
+               
+        .resetBtn {
+            background-color: #0e73f6;
+            padding: 8px 18px;
+            border: 1px solid #e5e9eb;
+            border-radius: 6px;
+            color: #fff;
+            
+            &:hover {
+                transform: scale(.96);
+            }
+        }
+
+      
+        .datesWrapper {
+          display: flex;
+          justify-content: space-between;
+          align-self: center;
+
+          input {
+            font-size: 14px;
+            font-weight: 400;
+            color: #9aa6ac;
+            border: 1px solid #e5e9eb;
+            border-radius: 6px;
+            max-width: 500px;
+            width: 100%;
+            padding: 8px 16px;
+            align-self: center;
+          }
+
+          .DatePicker {
+            width: 95%;
+          }
+        }
+      }
     }
   }
   .projectsCardWrapper {
@@ -33,6 +86,8 @@
       .leftSide {
         display: flex;
         align-items: center;
+        max-width: 250px;
+        width: 100%;
 
         .projectsImg {
           margin-right: 16px;
@@ -65,6 +120,8 @@
               font-size: 14px;
               font-weight: 500;
               color: #84919a;
+              max-width: 150px;
+              width: 100%;
             }
           }
         }
@@ -219,9 +276,11 @@
           width: 100%;
           padding: 8px 16px;
         }
+
         .datesWrapper {
           display: flex;
           justify-content: space-between;
+
           .DatePicker {
             width: 95%;
           }

@@ -27,7 +27,7 @@ const Home = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [projectsData, setProjectsData] = useState([]);
   const [newProject, setNewProject] = useState("");
-  const [projectId, setProjectId] = useState(""); 
+  const [projectId, setProjectId] = useState("");
   const projectsCollection = collection(db, "projects");
   const [folder, setFolder] = useState("");
   const [image, setImage] = useState({
@@ -41,8 +41,8 @@ const Home = () => {
   console.log("image = ", image);
   console.log("url", url);
   console.log(folder, "inside app");
-  console.log({newProject, startDate, endDate, })
-  console.log('prData', projectsData)
+  console.log({ newProject, startDate, endDate });
+  console.log("prData", projectsData);
 
   const getProjects = async () => {
     const data = await getDocs(projectsCollection);
@@ -136,7 +136,6 @@ const Home = () => {
     getProjects();
   }, []);
 
-
   const deleteProject = async (id) => {
     const projectDoc = doc(db, "projects", id);
     await deleteDoc(projectDoc);
@@ -192,7 +191,32 @@ const Home = () => {
         url={url}
         setUrl={setUrl}
       />
-      <Table />
+      <Table
+        projectsData={projectsData}
+        deleteProject={deleteProject}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        isEditOpen={isEditOpen}
+        setIsEditOpen={setIsEditOpen}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        image={image}
+        setImage={setImage}
+        uploadedImage={uploadedImage}
+        setUploadedImage={setUploadedImage}
+        folder={folder}
+        setFolder={setFolder}
+        isPressed={isPressed}
+        setIsPressed={setIsPressed}
+        fileUpload={fileUpload}
+        newProject={newProject}
+        setNewProject={setNewProject}
+        getProjects={getProjects}
+        url={url}
+        setUrl={setUrl}
+      />
     </div>
   );
 };

@@ -1,78 +1,116 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Layout from "../Layout";
 import styles from "./table.module.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { getDocs, collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
-const data = [
-  {
-    id:1,
-    name: 'Алиса Морозова',
-    amount: '$106.58',
-    inv: 'PL12334439893',
-    status: true,
-    statusData: 'Unpaid',
-    invDate: '8/30/14',
-    discDate: '8/30/14'
-  },
+const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
+  let timestamp = Math.round(new Date().getTime() / 1000);
+  const [users, setUsers] = useState([]);
+  const [name, setName] = useState("");
+  const [isUsersModalOpen, setIsUsersModalOpen] = useState(false);
+  const usersCollection = collection(db, "users");
 
-  {
-    id:2,
-    name: 'Артём Соколов',
-    amount: '$202.87',
-    inv: 'PL12334439893',
-    status: false,
-    statusData: 'Overdue',
-    invDate: '9/23/16',
-    discDate: '9/23/16'
-  },
+  console.log("users", users);
 
-  {
-    id:3,
-    name: 'Иван Семёнов',
-    amount: '$943.65',
-    inv: 'PL12334439893',
-    status: true,
-    statusData: 'Unpaid',
-    invDate: '5/27/15',
-    discDate: '5/27/15'
-  },
+  const getUsers = async () => {
+    const data = await getDocs(usersCollection);
+    setUsers(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          timeStamp: doc.data().timeStamp,
+          folder: doc.data().folder,
+        }))
+        .sort(function (a, b) {
+          return a.timeStamp - b.timeStamp;
+        })
+        .slice(-5)
+        .reverse()
+    );
+  };
 
-  {
-    id:4,
-    name: 'Кристина Тарасова',
-    amount: '$601.13',
-    inv: 'PL12334439893',
-    status: true,
-    statusData: 'Unpaid',
-    invDate: '9/4/12',
-    discDate: '9/4/12'
-  },
+  const addProject = async () => {
+    await addDoc(usersCollection, {
+      label: name,
+      timeStamp: timestamp,
+      folder: folder,
+    });
+    getUsers();
+    setIsPressed(false);
+    setName("");
+    setIsUsersModalOpen(false);
+    setFolder("");
+  };
 
-  {
-    id:5,
-    name: 'Ольга Ильина',
-    amount: '$739.65',
-    inv: 'PL12334439893',
-    status: true,
-    statusData: 'Unpaid',
-    invDate: '6/19/14',
-    discDate: '6/19/14'
-  }
-]
+  useEffect(() => {
+    getUsers();
+  }, []);
 
-const Table = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getUsers();
+    addProject();
+    setIsPressed(true);
+    setUsers();
+  };
+
+  const cancelBtn = () => {
+    setIsUsersModalOpen(false);
+    setIsPressed(false);
+    setName("");
+  };
+
+  // const handleImageChange = (event) => {
+  //   event.preventDefault();
+  //   fileUpload({
+  //     file: URL.createObjectURL(event.target.files[0]),
+  //     uploaded: event.target.files[0],
+  //   });
+  // };
+
+  const handleClickOverlay = () => {
+    setName("");
+    setIsUsersModalOpen(false);
+    setFolder("");
+  };
+
+  const changeSelectValue = (newValue) => {
+    setFolder(newValue);
+    console.log("newValue", newValue);
+  };
+
   return (
     <>
       <Layout>
         <div className={styles.tableWrapper}>
-          <h1 className={styles.tableHeading}>Upcoming payments</h1>
+          <div className={styles.Header}>
+            <h1 className={styles.tableHeading}>Upcoming payments</h1>
+            <button
+              className={styles.newProjectBtn}
+              type="button"
+              onClick={() => setIsUsersModalOpen(true)}
+            >
+              <span className={styles.plusIcon}>+</span> New User
+            </button>
+          </div>
 
           <div className={styles.tableBg}>
             <div className={styles.tableContainer}>
               <div className={styles.headSection}>
-                <input type="text" className={styles.tableSearch} placeholder="Поиск..." />
+                <input
+                  type="text"
+                  className={styles.tableSearch}
+                  placeholder="Поиск..."
+                />
                 <ul className={styles.tableMenu}>
                   <li>
-                    <a href="/" className={styles.tableActive}>Unpaid</a>
+                    <a href="/" className={styles.tableActive}>
+                      Unpaid
+                    </a>
                   </li>
                   <li>
                     <a href="/">Overdue</a>
@@ -86,39 +124,142 @@ const Table = () => {
               <table className={styles.table}>
                 <thead>
                   <tr>
-                    <th  className={styles.checkBox}>
-                      <input type="checkbox"/>
-                    </th>
+                    {/* <th className={styles.checkBox}>
+                      <input type="checkbox" />
+                    </th> */}
                     <th className={styles.name}>Name</th>
-                    <th className={styles.amount}>Amount</th>
-                    <th className={styles.inv}>Inv</th>
-                    <th className={styles.status}>Status</th>
-                    <th className={styles.dates}>Inv Date</th>
-                    <th className={styles.dates}>Disc Date</th>
+                    {/* <th className={styles.amount}>Amount</th> */}
+                    <th className={styles.inv}>ID</th>
+                    <th className={styles.status}>Project</th>
+                    {/* <th className={styles.dates}>Inv Date</th>
+                    <th className={styles.dates}>Disc Date</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((datas) => (
-                     <tr key={datas.id}>
-                      <td  className={styles.checkBox}>
-                        <input type="checkbox"/>
-                      </td>
-                      <td>{datas.name}</td>
-                      <td>{datas.amount}</td>
-                      <td>{datas.inv}</td>
+                  {users.map((datas) => (
+                    <tr key={datas.id}>
+                      {/* <td className={styles.checkBox}>
+                        <input type="checkbox" />
+                      </td> */}
+                      <td>{datas.label}</td>
+                      {/* <td>{datas.amount}</td> */}
+                      <td>{datas.timeStamp}</td>
                       <td>
-                        <span className={`${datas.status ? styles.unpaid : styles.overdue}`}>{datas.statusData}</span>
+                        {/* <span
+                          className={`${
+                            datas.status ? styles.unpaid : styles.overdue
+                          }`}
+                        >
+                 
+                        </span> */}
+                        {datas.folder}
                       </td>
-                      <td>{datas.invDate}</td>
-                      <td>{datas.discDate}</td>
-                   </tr>
-                  ))}  
+                      {/* <td>{datas.invDate}</td>
+                      <td>{datas.discDate}</td> */}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-              
             </div>
           </div>
         </div>
+
+        {isUsersModalOpen && (
+          <>
+            <div className={styles.overlay} onClick={handleClickOverlay} />
+            <div className={styles.modal}>
+              <div className={styles.modalWrapper}>
+                <h1 className={styles.modalHeading}>Adding new user</h1>
+                <form className={styles.modalForm} onSubmit={handleSubmit}>
+                  <div className={styles.inputForms}>
+                    <div className={styles.inputField}>
+                      <label htmlFor="title">Full name </label>
+                      <input
+                        type="text"
+                        placeholder="Write your name here"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    {/* <div className={styles.dateField}>
+                      <label htmlFor="title">Date </label>
+                      <div className={styles.datesWrapper}>
+                        <DatePicker
+                          className={styles.DatePicker}
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          selectsStart
+                          startDate={startDate}
+                          endDate={endDate}
+                          required
+                        />
+                        <DatePicker
+                          className={styles.DatePicker}
+                          selected={endDate}
+                          onChange={(date) => setEndDate(date)}
+                          selectsEnd
+                          startDate={startDate}
+                          endDate={endDate}
+                          minDate={startDate}
+                          required
+                        />
+                      </div>
+                    </div> */}
+                    {/* <div className={styles.fileUploadField}>
+                      <label htmlFor="status">Image </label>
+                      {image.file == null && (
+                        <input
+                          type="file"
+                          accept=".jpg, .png, .jpeg"
+                          onChange={handleImageChange}
+                          required
+                        />
+                      )}
+                      {image.file !== null && (
+                        <img src={image.file} alt="uploaded-picture" />
+                      )}
+                    </div> */}
+                    <div className={styles.membersField}>
+                      <label htmlFor="title">Project</label>
+                      <select
+                        onChange={(e) => changeSelectValue(e.target.value)}
+                        value={folder}
+                        required
+                      >
+                        <option value="" defaultValue disabled hidden>
+                          {" "}
+                          Select project{" "}
+                        </option>
+                        <option value="favourites">Favourites</option>
+                        <option value="trips">Trips</option>
+                        <option value="work">Work</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className={styles.buttons}>
+                    <button
+                      type="button"
+                      className={styles.cancelBtn}
+                      onClick={() => cancelBtn()}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={styles.saveBtn}
+                      disabled={isPressed}
+                      onClick={() => console.log("pressed")}
+                    >
+                      {isPressed ? "Loading" : "Save"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </>
+        )}
       </Layout>
     </>
   );

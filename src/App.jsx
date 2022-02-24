@@ -23,6 +23,7 @@ import Favourites from "./components/Favourites";
 import Trips from './components/Trips'
 import Work from './components/Work'
 import MyProjects from "./components/MyProjects";
+import NotFoundPage from "./components/NotFoundPage";
 
 // let timestamp = Math.round(new Date().getTime() / 1000);
 
@@ -155,6 +156,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path='*' element={<NotFoundPage/>}/>
           <Route exact path='/' element={<Home/>}/> 
           <Route path="/favourites" element={<Favourites/>}/>
           <Route path="/trips" element={<Trips/>}/>

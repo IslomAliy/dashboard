@@ -21,7 +21,9 @@
           .leftSide {
             display: flex;
             align-items: center;
-    
+            max-width: 250px;
+            width: 100%;
+            
             .projectsImg {
               margin-right: 16px;
               max-width: 45px;
@@ -53,6 +55,8 @@
                   font-size: 14px;
                   font-weight: 500;
                   color: #84919a;
+                  max-width: 150px;
+                  width: 100%;
                 }
               }
             }

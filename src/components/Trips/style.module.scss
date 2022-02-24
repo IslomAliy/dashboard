@@ -21,6 +21,8 @@
           .leftSide {
             display: flex;
             align-items: center;
+            max-width: 250px;
+            width: 100%;
     
             .projectsImg {
               margin-right: 16px;

@@ -35,7 +35,14 @@ const MyProjects = () => {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const projectsCollection = collection(db, "projects");
-  console.log("len", projectsData.length);
+
+  console.log('toLocale', startDate.toLocaleString().slice(0,11))
+
+  const resetDates = () => {
+      setStartDate(Date.now())
+      setEndDate(Date.now())
+      getProjects()
+  }
 
   useEffect(() => {
     const loading = setTimeout(() => {
@@ -168,21 +175,47 @@ const MyProjects = () => {
                 All
                 {
                   <span style={{ color: "#dc3545" }}>
-                    {" "}
-                    {projectsData.length}{" "}
+                  {""}  { projectsData.length } {""}
                   </span>
                 }
                 projects show up there.
               </h2>
             )}
 
-            <input
-              type="text"
-              name="search"
-              className={styles.search}
-              placeholder="Type to search project"
-              onChange={e => setSearchTerm(e.target.value)}
-            />
+            <div className={styles.filterSide}>
+              <input
+                type="text"
+                name="search"
+                className={styles.search}
+                placeholder="Type to search project"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+
+              <div className={styles.dateField}>
+                <div className={styles.datesWrapper}>
+                  <DatePicker
+                    className={styles.DatePicker}
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    // endDate={endDate}
+                    required
+                  />
+                  <DatePicker
+                    className={styles.DatePicker}
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    required
+                  />
+                </div>
+                <button type="button" className={styles.resetBtn} onClick={() => resetDates()}>Reset</button>
+              </div>
+            </div>
           </div>
           <div className={styles.projectsCardWrapper}>
             {isLoading && (
@@ -243,60 +276,73 @@ const MyProjects = () => {
               </>
             )}
 
-            {!isLoading &&  
-              projectsData.filter((value) => {
-                  if(searchTerm == ""){
+            {!isLoading &&
+              projectsData
+                .filter((value) => {
+                  if (searchTerm == "") {
+                    return value;
+                  } 
+                  else if (
+                      value.startDate.search(startDate.toLocaleDateString().slice(0,10)) && value.endDate.search(endDate.toLocaleDateString().slice(0,10))
+                  ) {
                       return value;
+                      getProjects();
                   }
-                  else if(value.label.toLowerCase().includes(searchTerm.toLowerCase())){
-                      return value;
+                  else if (
+                    value.label.toLowerCase().includes(searchTerm.toLowerCase())
+                  ) {
+                    return value;
                   }
-              }).map((projectData) => (
-                <div
-                  className={styles.projectsCard}
-                  key={projectsData.timeStamp}
-                >
-                  <div className={styles.leftSide}>
-                    <img
-                      src={projectData.url}
-                      alt="project-img"
-                      className={styles.projectsImg}
-                    />
-                    <div className={styles.projectsName}>
-                      <p className={styles.projectsText}>
-                        {isLoading ? (
-                          <Skeleton width={70} />
-                        ) : (
-                          projectData.label
-                        )}
-                      </p>
-                      <div className={styles.projectsDate}>
-                        <img src="/images/calendar_today.svg" alt="calendar" />
-                        <p className={styles.date}>
-                          {projectData.startDate} - {projectData.endDate}
+                })
+                .map((projectData, timeStamp) => (
+                  <div
+                    className={styles.projectsCard}
+                    key={timeStamp}
+                  >
+                    <div className={styles.leftSide}>
+                      <img
+                        src={projectData.url}
+                        alt="project-img"
+                        className={styles.projectsImg}
+                      />
+                      <div className={styles.projectsName}>
+                        <p className={styles.projectsText}>
+                          {isLoading ? (
+                            <Skeleton width={70} />
+                          ) : (
+                            projectData.label
+                          )}
                         </p>
+                        <div className={styles.projectsDate}>
+                          <img
+                            src="/images/calendar_today.svg"
+                            alt="calendar"
+                          />
+                          <p className={styles.date}>
+                            {projectData.startDate} - {projectData.endDate}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <div className={styles.rightSide}>
+                      <button
+                        type="button"
+                        className={styles.editBtn}
+                        onClick={() => handleEdit(projectData.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className={styles.deleteBtn}
+                        onClick={() => {
+                          deleteProject(projectData.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                  <div className={styles.rightSide}>
-                    <button
-                      type="button"
-                      className={styles.editBtn}
-                      onClick={() => handleEdit(projectData.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className={styles.deleteBtn}
-                      onClick={() => {
-                        deleteProject(projectData.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
           </div>
           {isEditOpen && (
             <>
