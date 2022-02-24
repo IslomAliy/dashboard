@@ -16,6 +16,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Pagination from "../Pagination";
 
 const MyProjects = () => {
   let timestamp = Math.round(new Date().getTime() / 1000);
@@ -34,15 +35,17 @@ const MyProjects = () => {
     uploaded: "",
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
   const projectsCollection = collection(db, "projects");
 
-  console.log('toLocale', startDate.toLocaleString().slice(0,11))
+  console.log("toLocale", startDate.toLocaleString().slice(0, 11));
 
   const resetDates = () => {
-      setStartDate(Date.now())
-      setEndDate(Date.now())
-      getProjects()
-  }
+    setStartDate(Date.now());
+    setEndDate(Date.now());
+    getProjects();
+  };
 
   useEffect(() => {
     const loading = setTimeout(() => {
@@ -159,6 +162,15 @@ const MyProjects = () => {
         });
     });
   };
+
+  // get current post
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = projectsData.slice(indexOfFirstPost, indexOfLastPost);
+
+  //paginate
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <Layout>
@@ -175,7 +187,8 @@ const MyProjects = () => {
                 All
                 {
                   <span style={{ color: "#dc3545" }}>
-                  {""}  { projectsData.length } {""}
+                    {" "}
+                    {currentPosts.length} of {projectsData.length} {""}
                   </span>
                 }
                 projects show up there.
@@ -213,7 +226,13 @@ const MyProjects = () => {
                     required
                   />
                 </div>
-                <button type="button" className={styles.resetBtn} onClick={() => resetDates()}>Reset</button>
+                <button
+                  type="button"
+                  className={styles.resetBtn}
+                  onClick={() => resetDates()}
+                >
+                  Reset
+                </button>
               </div>
             </div>
           </div>
@@ -277,73 +296,83 @@ const MyProjects = () => {
             )}
 
             {!isLoading &&
-              projectsData
+              currentPosts
                 .filter((value) => {
                   if (searchTerm == "") {
                     return value;
-                  } 
-                  else if (
-                      value.startDate.search(startDate.toLocaleDateString().slice(0,10)) && value.endDate.search(endDate.toLocaleDateString().slice(0,10))
+                  } else if (
+                    value.startDate.search(
+                      startDate.toLocaleDateString().slice(0, 10)
+                    ) &&
+                    value.endDate.search(
+                      endDate.toLocaleDateString().slice(0, 10)
+                    )
                   ) {
-                      return value;
-                      getProjects();
-                  }
-                  else if (
+                    return value;
+                    getProjects();
+                  } else if (
                     value.label.toLowerCase().includes(searchTerm.toLowerCase())
                   ) {
                     return value;
                   }
                 })
                 .map((projectData, timeStamp) => (
-                  <div
-                    className={styles.projectsCard}
-                    key={timeStamp}
-                  >
-                    <div className={styles.leftSide}>
-                      <img
-                        src={projectData.url}
-                        alt="project-img"
-                        className={styles.projectsImg}
-                      />
-                      <div className={styles.projectsName}>
-                        <p className={styles.projectsText}>
-                          {isLoading ? (
-                            <Skeleton width={70} />
-                          ) : (
-                            projectData.label
-                          )}
-                        </p>
-                        <div className={styles.projectsDate}>
-                          <img
-                            src="/images/calendar_today.svg"
-                            alt="calendar"
-                          />
-                          <p className={styles.date}>
-                            {projectData.startDate} - {projectData.endDate}
+                  <>
+                    <div className={styles.projectsCard} key={timeStamp}>
+                      <div className={styles.leftSide}>
+                        <img
+                          src={projectData.url}
+                          alt="project-img"
+                          className={styles.projectsImg}
+                        />
+                        <div className={styles.projectsName}>
+                          <p className={styles.projectsText}>
+                            {isLoading ? (
+                              <Skeleton width={70} />
+                            ) : (
+                              projectData.label
+                            )}
                           </p>
+                          <div className={styles.projectsDate}>
+                            <img
+                              src="/images/calendar_today.svg"
+                              alt="calendar"
+                            />
+                            <p className={styles.date}>
+                              {projectData.startDate} - {projectData.endDate}
+                            </p>
+                          </div>
                         </div>
                       </div>
+                      <div className={styles.rightSide}>
+                        <button
+                          type="button"
+                          className={styles.editBtn}
+                          onClick={() => handleEdit(projectData.id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className={styles.deleteBtn}
+                          onClick={() => {
+                            deleteProject(projectData.id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.rightSide}>
-                      <button
-                        type="button"
-                        className={styles.editBtn}
-                        onClick={() => handleEdit(projectData.id)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className={styles.deleteBtn}
-                        onClick={() => {
-                          deleteProject(projectData.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
+                  </>
                 ))}
+            <div style={{ display: "flex", flexDirection: "flex-end" }}>
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={projectsData.length}
+                paginate={paginate}
+              />
+            </div>
           </div>
+
           {isEditOpen && (
             <>
               <div className={styles.overlay} onClick={handleClickOverlay} />

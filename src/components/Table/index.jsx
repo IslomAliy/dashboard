@@ -113,7 +113,7 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
       <Layout>
         <div className={styles.tableWrapper}>
           <div className={styles.Header}>
-            <h1 className={styles.tableHeading}>Upcoming payments</h1>
+            <h1 className={styles.tableHeading}>Users with project</h1>
             <button
               className={styles.newProjectBtn}
               type="button"
@@ -152,7 +152,7 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
                     {/* <th className={styles.checkBox}>
                       <input type="checkbox" />
                     </th> */}
-                    <th className={styles.name}>Name</th>
+                    <th className={styles.name}>User's Name</th>
                     {/* <th className={styles.amount}>Amount</th> */}
                     <th className={styles.inv}>ID</th>
                     <th className={styles.status}>Project</th>
