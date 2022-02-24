@@ -300,25 +300,26 @@ const MyProjects = () => {
                 .filter((value) => {
                   if (searchTerm == "") {
                     return value;
-                  } else if (
-                    value.startDate.search(
-                      startDate.toLocaleDateString().slice(0, 10)
-                    ) &&
-                    value.endDate.search(
-                      endDate.toLocaleDateString().slice(0, 10)
-                    )
-                  ) {
-                    return value;
-                    getProjects();
-                  } else if (
+                  } 
+                //   else if (
+                //     value.startDate.find(
+                //       startDate.toLocaleDateString().slice(0, 10)
+                //     ) &&
+                //     value.endDate.find(
+                //       endDate.toLocaleDateString().slice(0, 10)
+                //     )
+                //   ) {
+                //     return value;
+                //   } 
+                  else if (
                     value.label.toLowerCase().includes(searchTerm.toLowerCase())
                   ) {
                     return value;
                   }
                 })
-                .map((projectData, timeStamp) => (
+                .map((projectData) => (
                   <>
-                    <div className={styles.projectsCard} key={timeStamp}>
+                    <div className={styles.projectsCard} key={projectData.id}>
                       <div className={styles.leftSide}>
                         <img
                           src={projectData.url}
