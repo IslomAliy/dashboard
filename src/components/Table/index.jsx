@@ -8,12 +8,36 @@ import { db } from "../../firebase-config";
 
 const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
   let timestamp = Math.round(new Date().getTime() / 1000);
+  const [projects, setProjects] = useState([])
   const [users, setUsers] = useState([]);
   const [name, setName] = useState("");
   const [isUsersModalOpen, setIsUsersModalOpen] = useState(false);
   const usersCollection = collection(db, "users");
+  const projectsCollection = collection(db, 'projects')
 
+  // console.log('projects label', projects.map((data) => (
+  //   data.label
+  // )));
+  console.log(projects);
   console.log("users", users);
+
+  const getProjectsData = async () => {
+    const data = await getDocs(projectsCollection);
+    setProjects(
+      data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+          timeStamp: doc.data().timeStamp,
+          folder: doc.data().folder,
+        }))
+        .sort(function (a, b) {
+          return a.timeStamp - b.timeStamp;
+        })
+        .slice(-10)
+        .reverse()
+    );
+  };
 
   const getUsers = async () => {
     const data = await getDocs(usersCollection);
@@ -37,7 +61,7 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
     await addDoc(usersCollection, {
       label: name,
       timeStamp: timestamp,
-      folder: folder,
+      folder: folder.toString(),
     });
     getUsers();
     setIsPressed(false);
@@ -47,6 +71,7 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
   };
 
   useEffect(() => {
+    getProjectsData();
     getUsers();
   }, []);
 
@@ -107,14 +132,14 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
                   placeholder="Поиск..."
                 />
                 <ul className={styles.tableMenu}>
-                  <li>
+                  {/* <li>
                     <a href="/" className={styles.tableActive}>
                       Unpaid
                     </a>
                   </li>
                   <li>
                     <a href="/">Overdue</a>
-                  </li>
+                  </li> */}
                   <li>
                     <a href="/">All</a>
                   </li>
@@ -136,7 +161,7 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((datas) => (
+                  {users?.map((datas) => (
                     <tr key={datas.id}>
                       {/* <td className={styles.checkBox}>
                         <input type="checkbox" />
@@ -231,9 +256,9 @@ const Table = ({ folder, setFolder, isPressed, setIsPressed }) => {
                           {" "}
                           Select project{" "}
                         </option>
-                        <option value="favourites">Favourites</option>
-                        <option value="trips">Trips</option>
-                        <option value="work">Work</option>
+                        {projects.map((data) => (
+                           <option value={data.label} key={data.id}>{data.label}</option>
+                        ))}
                       </select>
                     </div>
                   </div>

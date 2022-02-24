@@ -62,7 +62,7 @@
 
         .tableMenu {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
           width: 100%;
           max-width: 187px;
           li {
@@ -191,7 +191,7 @@
   display: block;
   position: absolute;
   left: 50%;
-  top: 55%;
+  top: 70%;
   transform: translateY(-50%);
   transform: translateX(-50%);
   margin-top: 50px;
@@ -350,6 +350,10 @@
           max-width: 424px;
           width: 100%;
           padding: 8px 16px;
+
+          option {
+            padding: 10px;
+          }
         }
 
         // select:required:invalid {
